@@ -1,0 +1,11 @@
+use_frameworks!
+
+target 'StaticLib_Example', :exclusive => true do
+  pod 'StaticLib', :path => '../'
+end
+
+target 'StaticLib_Tests', :exclusive => true do
+  pod 'StaticLib', :path => '../'
+
+  
+end
