@@ -2,13 +2,13 @@ PODS:
   - StaticLib (0.1.0)
 
 DEPENDENCIES:
-  - StaticLib (from `../`)
+  - StaticLib (from `/Users/romanovakov/Desktop/Libraries/StaticLib`)
 
 EXTERNAL SOURCES:
   StaticLib:
-    :path: ../
+    :path: /Users/romanovakov/Desktop/Libraries/StaticLib
 
 SPEC CHECKSUMS:
-  StaticLib: 2ef6302be87385321ae48fef3fc6ab0ed9f49ac9
+  StaticLib: c825bad1c134cee0510e753f28952c6e1247edfa
 
 COCOAPODS: 0.39.0

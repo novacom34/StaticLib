@@ -1,11 +1,9 @@
+platform :ios, '8.0'
 use_frameworks!
 
-target 'StaticLib_Example', :exclusive => true do
-  pod 'StaticLib', :path => '../'
-end
-
-target 'StaticLib_Tests', :exclusive => true do
-  pod 'StaticLib', :path => '../'
-
-  
+target 'StaticLib_Example' do
+    pod 'StaticLib'
+    pod 'AFNetworking', '~> 2.6'
+    pod 'ORStackView', '~> 3.0'
+    pod 'SwiftyJSON', '~> 2.3'
 end

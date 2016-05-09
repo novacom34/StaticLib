@@ -1,15 +1,15 @@
 {
   "name": "StaticLib",
   "version": "0.1.0",
-  "summary": "A short description of StaticLib.",
-  "description": "TODO: Add long description of the pod here.",
-  "homepage": "https://github.com/<GITHUB_USERNAME>/StaticLib",
+  "summary": "StaticLib is library for project.",
+  "description": "#TODO: Add long description of the pod here.\nlong description…",
+  "homepage": "https://github.com/novacom34/StaticLib",
   "license": "MIT",
   "authors": {
-    "Roma Novakov": "roman.novakov@sannacode.com"
+    "Roma Novakov": "novacom34@gmail.com"
   },
   "source": {
-    "git": "https://github.com/<GITHUB_USERNAME>/StaticLib.git",
+    "git": "https://github.com/novacom34/StaticLib.git",
     "tag": "0.1.0"
   },
   "platforms": {
