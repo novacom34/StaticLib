@@ -9,7 +9,7 @@
 import Foundation
 
 //MARK: - ModelObserver Protocol
-protocol ObserverModelProtocol : class {
+public protocol ObserverModelProtocol : class {
     
     // Model did load 
     // Model will load
@@ -17,7 +17,7 @@ protocol ObserverModelProtocol : class {
 }
 
 //MARK: - ObservableModelProtocol Protocol
-protocol ObservableProtocol {
+public protocol ObservableProtocol {
     
     var observerSet : NSMutableSet { get }
     
@@ -32,9 +32,9 @@ protocol ObservableProtocol {
 //MARK: - ObservableObject Protocol
 public class ObservableObject : NSObject, ObservableProtocol {
 
-    private(set) var observerSet : NSMutableSet = NSMutableSet()
+    private(set) public var observerSet : NSMutableSet = NSMutableSet()
     
-    func registerObserver(observer: NSObject) {
+    public func registerObserver(observer: NSObject) {
         
         let lockQueue = dispatch_queue_create("com.registerObserver.queue", nil)
         dispatch_sync(lockQueue) {
@@ -44,7 +44,7 @@ public class ObservableObject : NSObject, ObservableProtocol {
         
     }
     
-    func unregisterObserver(observer: NSObject) {
+    public func unregisterObserver(observer: NSObject) {
         
         let lockQueue = dispatch_queue_create("com.unregisterObserver.queue", nil)
         dispatch_sync(lockQueue) {
@@ -55,7 +55,7 @@ public class ObservableObject : NSObject, ObservableProtocol {
         }
     }
    
-    func notifyObserversWithSelector(selector: Selector, andObject object: AnyObject?) {
+    public func notifyObserversWithSelector(selector: Selector, andObject object: AnyObject?) {
         
         let lockQueue = dispatch_queue_create("com.unregisterObserver.queue", nil)
         dispatch_sync(lockQueue) {
@@ -68,7 +68,7 @@ public class ObservableObject : NSObject, ObservableProtocol {
         }
     }
 
-    func notifyObserversInMainThreadWithSelector(selector: Selector, andObject object: AnyObject?) {
+    public func notifyObserversInMainThreadWithSelector(selector: Selector, andObject object: AnyObject?) {
         
         
         
