@@ -61,8 +61,10 @@ public class ObservableObject : NSObject, ObservableProtocol {
         dispatch_sync(lockQueue) { [weak self] in
             for object in self!.observerSet {
                 let weakLink = object as! WeakLink
-                if weakLink.target?.respondsToSelector(selector) != nil {
-                    weakLink.target!.performSelector(selector, withObject: object)
+                if let isResponse = weakLink.target?.respondsToSelector(selector) {
+                    if isResponse {
+                        weakLink.target?.performSelector(selector, withObject: object)
+                    }
                 }
             }
         }
@@ -70,10 +72,24 @@ public class ObservableObject : NSObject, ObservableProtocol {
 
     public func notifyObserversInMainThreadWithSelector(selector: Selector, andObject object: AnyObject?) {
         
-        
-        
+        let lockQueue = dispatch_queue_create("com.unregisterObserver.queue", nil)
+        dispatch_sync(lockQueue) { [weak self] in
+            for object in self!.observerSet {
+                let weakLink = object as! WeakLink
+                if let isResponse = weakLink.target?.respondsToSelector(selector) {
+                    if isResponse {
+                        dispatch_async(dispatch_get_main_queue()) { [unowned  weakLink] in
+                            weakLink.target?.performSelector(selector, withObject: object)
+                        }
+                    }
+                }
+            }
+        }
     }
  
+    deinit {
+        print("Deinit: "+"\(self)")
+    }
     
 }
 
