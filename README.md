@@ -17,12 +17,12 @@ StaticLib is available through [CocoaPods](http://cocoapods.org). To install
 it, simply add the following line to your Podfile:
 
 ```ruby
-pod "StaticLib"
+pod 'StaticLib',:git => "https://github.com/novacom34/StaticLib.git"
 ```
 
 ## Author
 
-Roma Novakov, roman.novakov@sannacode.com
+Roma Novakov, novacom34@gmail.com
 
 ## License
 
