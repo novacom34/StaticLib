@@ -37,9 +37,10 @@ public class ObservableObject : NSObject, ObservableProtocol {
     public func registerObserver(observer: NSObject) {
         
         let lockQueue = dispatch_queue_create("com.registerObserver.queue", nil)
-        dispatch_sync(lockQueue) { [weak self] in
+        
+        dispatch_sync(lockQueue) { [unowned self] in
             let weakLink = WeakLink(target: observer)
-            self?.observerSet.addObject(weakLink)
+            self.observerSet.addObject(weakLink)
         }
         
     }
@@ -47,19 +48,17 @@ public class ObservableObject : NSObject, ObservableProtocol {
     public func unregisterObserver(observer: NSObject) {
         
         let lockQueue = dispatch_queue_create("com.unregisterObserver.queue", nil)
-        dispatch_sync(lockQueue) { [weak self] in
+        dispatch_sync(lockQueue) { [unowned self] in
             let weakLink = WeakLink(target: observer)
-            //FIXIT: =============================
-            self?.observerSet.removeObject(weakLink)
-            // ===================================
+            self.observerSet.removeObject(weakLink)
         }
     }
    
     public func notifyObserversWithSelector(selector: Selector, andObject object: AnyObject?) {
         
         let lockQueue = dispatch_queue_create("com.unregisterObserver.queue", nil)
-        dispatch_sync(lockQueue) { [weak self] in
-            for object in self!.observerSet {
+        dispatch_sync(lockQueue) { [unowned self] in
+            for object in self.observerSet {
                 let weakLink = object as! WeakLink
                 if let isResponse = weakLink.target?.respondsToSelector(selector) {
                     if isResponse {
@@ -73,8 +72,8 @@ public class ObservableObject : NSObject, ObservableProtocol {
     public func notifyObserversInMainThreadWithSelector(selector: Selector, andObject object: AnyObject?) {
         
         let lockQueue = dispatch_queue_create("com.unregisterObserver.queue", nil)
-        dispatch_sync(lockQueue) { [weak self] in
-            for object in self!.observerSet {
+        dispatch_sync(lockQueue) { [unowned self] in
+            for object in self.observerSet {
                 let weakLink = object as! WeakLink
                 if let isResponse = weakLink.target?.respondsToSelector(selector) {
                     if isResponse {
