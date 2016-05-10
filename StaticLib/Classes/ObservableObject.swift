@@ -9,11 +9,9 @@
 import Foundation
 
 //MARK: - ModelObserver Protocol
-public protocol ObserverModelProtocol : class {
-    
-    // Model did load 
-    // Model will load
-    func modelDidLoad()
+@objc public protocol ObserverModelProtocol : class {
+
+    optional func modelDidLoad()
 }
 
 //MARK: - ObservableModelProtocol Protocol
@@ -37,7 +35,6 @@ public class ObservableObject : NSObject, ObservableProtocol {
     public func registerObserver(observer: NSObject) {
         
         let lockQueue = dispatch_queue_create("com.registerObserver.queue", nil)
-        
         dispatch_sync(lockQueue) { [unowned self] in
             let weakLink = WeakLink(target: observer)
             self.observerSet.addObject(weakLink)
@@ -85,14 +82,12 @@ public class ObservableObject : NSObject, ObservableProtocol {
             }
         }
     }
- 
+    
+// Only test method
     deinit {
         print("Deinit: "+"\(self)")
     }
     
 }
-
-
-
 
 

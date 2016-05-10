@@ -2,7 +2,8 @@ platform :ios, '8.0'
 use_frameworks!
 
 target 'StaticLib_Example' do
-    pod 'StaticLib',:git => "https://github.com/novacom34/StaticLib.git"
+    pod 'StaticLib',:path => "/Users/romanovakov/Desktop/Libraries/StaticLib"
+    #pod 'StaticLib',:path => "https://github.com/novacom34/StaticLib.git"
     pod 'Alamofire'
     
 end
