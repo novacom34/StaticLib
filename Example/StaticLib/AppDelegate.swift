@@ -7,15 +7,31 @@
 //
 
 import UIKit
+import StaticLib
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, ObserverModelProtocol {
 
     var window: UIWindow?
 
+    func modelDidLoad() {
+        
+    }
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        // Override point for customization after application launch.
+        
+        
+        let observebl : ObservableObject = ObservableObject()
+        observebl.registerObserver(self)
+        
+        let sel = #selector(AppDelegate.modelDidLoad)
+        
+        observebl.notifyObserversWithSelector(sel, andObject: nil)
+        
+        observebl.unregisterObserver(self)
+        
+        print("End")
+        
         return true
     }
 

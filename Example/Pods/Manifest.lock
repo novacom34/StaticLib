@@ -1,14 +1,22 @@
 PODS:
+  - Alamofire (3.4.0)
   - StaticLib (0.1.0)
 
 DEPENDENCIES:
-  - StaticLib (from `/Users/romanovakov/Desktop/Libraries/StaticLib`)
+  - Alamofire
+  - StaticLib (from `https://github.com/novacom34/StaticLib.git`)
 
 EXTERNAL SOURCES:
   StaticLib:
-    :path: /Users/romanovakov/Desktop/Libraries/StaticLib
+    :git: https://github.com/novacom34/StaticLib.git
+
+CHECKOUT OPTIONS:
+  StaticLib:
+    :commit: 247cb2070dc7078f1665ace6bc27ad48818bcbf8
+    :git: https://github.com/novacom34/StaticLib.git
 
 SPEC CHECKSUMS:
+  Alamofire: c19a627cefd6a95f840401c49ab1f124e07f54ee
   StaticLib: c825bad1c134cee0510e753f28952c6e1247edfa
 
 COCOAPODS: 0.39.0

@@ -2,8 +2,7 @@ platform :ios, '8.0'
 use_frameworks!
 
 target 'StaticLib_Example' do
-    pod 'StaticLib'
-    pod 'AFNetworking', '~> 2.6'
-    pod 'ORStackView', '~> 3.0'
-    pod 'SwiftyJSON', '~> 2.3'
+    pod 'StaticLib',:git => "https://github.com/novacom34/StaticLib.git"
+    pod 'Alamofire'
+    
 end

@@ -84,8 +84,10 @@ strip_invalid_archs() {
 
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
+  install_framework "Pods-StaticLib_Example/Alamofire.framework"
   install_framework "Pods-StaticLib_Example/StaticLib.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
+  install_framework "Pods-StaticLib_Example/Alamofire.framework"
   install_framework "Pods-StaticLib_Example/StaticLib.framework"
 fi
