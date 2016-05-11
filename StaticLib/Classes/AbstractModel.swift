@@ -70,7 +70,7 @@ public class AbstractModel : ObservableObject {
         
     }//  State.Unload
     
-    func loading() {
+    public func loading() {
         
         self.state = .Loading
         let s = "modelWillLoad"
@@ -79,7 +79,7 @@ public class AbstractModel : ObservableObject {
         
     }//  State.Loading
     
-    func loadingWithProgress(progress: NSNumber) {
+    public func loadingWithProgress(progress: NSNumber) {
 
         let s = "modelLoading:withError:"
         let selector = Selector(s)
@@ -87,28 +87,28 @@ public class AbstractModel : ObservableObject {
         
     }
     
-    func load() {
+    public func load() {
         
     }//  State.Loaded
     
-    func canceled() {
+    public func canceled() {
         
     }//  State.Canceled
     
-    func failloading(withError: NSError) {
+    public func failloading(withError: NSError) {
         
     }//  State.Failed
     
     
-    func performLoading() {
+    public func performLoading() {
         
     }
     
-    func performUnloading() {
+    public func performUnloading() {
         
     }
     
-    func performCanceled() {
+    public func performCanceled() {
         
     }
 }
