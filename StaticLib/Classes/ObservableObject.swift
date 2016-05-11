@@ -8,16 +8,8 @@
 
 import Foundation
 
-//MARK: - ModelObserver Protocol
-@objc public protocol ObserverModelProtocol : class {
-
-    optional func modelDidLoad()
-}
-
 //MARK: - ObservableModelProtocol Protocol
 public protocol ObservableProtocol {
-    
-    var observerSet : NSMutableSet { get }
     
     func registerObserver(observer: NSObject)
     func unregisterObserver(observer: NSObject)
@@ -39,7 +31,6 @@ public class ObservableObject : NSObject, ObservableProtocol {
             let weakLink = WeakLink(target: observer)
             self.observerSet.addObject(weakLink)
         }
-        
     }
     
     public func unregisterObserver(observer: NSObject) {
