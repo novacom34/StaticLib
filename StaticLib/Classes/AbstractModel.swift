@@ -8,15 +8,16 @@
 
 import Foundation
 
+
 //MARK: - ModelObserver Protocol
 @objc public protocol ObserverModelProtocol : class {
     
-    optional func modelWillLoad(model: AbstractModel)
-    optional func modelDidLoad(model: AbstractModel)
-    optional func modelDidUnload(model: AbstractModel)
-    optional func modelDidCancel(model: AbstractModel)
-    optional func modelLoading(model: AbstractModel withProgress progress: NSNumber)
-    optional func modelFailLoading(model: AbstractModel withError error: NSError)
+     optional func modelWillLoad(model: AbstractModel)
+     func modelDidLoad(model: AbstractModel)
+     optional func modelDidUnload(model: AbstractModel)
+     optional func modelDidCancel(model: AbstractModel)
+     optional func modelLoading(model: AbstractModel, withProgress progress: NSNumber)
+     optional func modelFailLoading(model: AbstractModel, withError error: NSError)
     
 }
 
@@ -46,7 +47,6 @@ protocol ObservableModelProtocol {
     //===========================================================
     
 }
-
 
 public enum State {
     case Unloaded
