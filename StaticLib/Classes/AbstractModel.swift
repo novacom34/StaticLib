@@ -20,7 +20,7 @@ import Foundation
     
 }
 
-protocol ObservableModelProtocol {
+public protocol ObservableModelProtocol {
     
     //===========================================================
     // ============ Method for change model state ===============
@@ -61,7 +61,7 @@ public class AbstractModel : ObservableObject {
 
     private(set) var state: State = State.Unloaded
 
-    func unload() {
+    public func unload() {
         
         self.state = .Unloaded
         let s = "modelDidUnload"
