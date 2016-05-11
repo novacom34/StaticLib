@@ -8,12 +8,11 @@
 
 import Foundation
 
-
 //MARK: - ModelObserver Protocol
 @objc public protocol ObserverModelProtocol : class {
-    
+
      optional func modelWillLoad(model: AbstractModel)
-     func modelDidLoad(model: AbstractModel)
+     optional func modelDidLoad(model: AbstractModel)
      optional func modelDidUnload(model: AbstractModel)
      optional func modelDidCancel(model: AbstractModel)
      optional func modelLoading(model: AbstractModel, withProgress progress: NSNumber)
@@ -56,14 +55,17 @@ public enum State {
     case Canceled
 }
 
-public class AbstractModel : ObservableObject, ObservableModelProtocol {
+
+
+public class AbstractModel : ObservableObject {
 
     private(set) var state: State = State.Unloaded
 
     func unload() {
         
         self.state = .Unloaded
-        let selector = Selector("modelDidUnload")
+        let s = "modelDidUnload"
+        let selector = Selector(s)
         self.notifyObserversInMainThreadWithSelector(selector, andObject: nil)
         
     }//  State.Unload
@@ -71,14 +73,16 @@ public class AbstractModel : ObservableObject, ObservableModelProtocol {
     func loading() {
         
         self.state = .Loading
-        let selector = Selector("modelWillLoad")
+        let s = "modelWillLoad"
+        let selector = Selector(s)
         self.notifyObserversInMainThreadWithSelector(selector, andObject: nil)
         
     }//  State.Loading
     
     func loadingWithProgress(progress: NSNumber) {
 
-        let selector = Selector("modelLoading:withError:")
+        let s = "modelLoading:withError:"
+        let selector = Selector(s)
         self.notifyObserversInMainThreadWithSelector(selector, andObject: progress)
         
     }
@@ -96,7 +100,17 @@ public class AbstractModel : ObservableObject, ObservableModelProtocol {
     }//  State.Failed
     
     
+    func performLoading() {
+        
+    }
     
+    func performUnloading() {
+        
+    }
+    
+    func performCanceled() {
+        
+    }
 }
 
 
