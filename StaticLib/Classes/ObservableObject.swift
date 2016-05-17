@@ -44,34 +44,43 @@ public class ObservableObject : NSObject, ObservableProtocol {
    
     public func notifyObserversWithSelector(selector: Selector, andObject object: AnyObject?) {
         
-        let lockQueue = dispatch_queue_create("com.unregisterObserver.queue", nil)
-        dispatch_sync(lockQueue) { [unowned self] in
-            for object in self.observerSet {
-                let weakLink = object as! WeakLink
-                if let isResponse = weakLink.target?.respondsToSelector(selector) {
-                    if isResponse {
-                        weakLink.target?.performSelector(selector, withObject: object)
-                    }
+        objc_sync_enter(self.observerSet)
+        
+        for obj in self.observerSet {
+            let weakLink = obj as! WeakLink
+            if let isResponse = weakLink.target?.respondsToSelector(selector) {
+                if isResponse {
+                    let observer = weakLink.target
+                    observer?.performSelector(selector,
+                                              withObject: self,
+                                              withObject: object)
                 }
             }
         }
+    
+        objc_sync_exit(self.observerSet)
+        
     }
 
     public func notifyObserversInMainThreadWithSelector(selector: Selector, andObject object: AnyObject?) {
         
-        let lockQueue = dispatch_queue_create("com.unregisterObserver.queue", nil)
-        dispatch_sync(lockQueue) { [unowned self] in
-            for object in self.observerSet {
-                let weakLink = object as! WeakLink
-                if let isResponse = weakLink.target?.respondsToSelector(selector) {
-                    if isResponse {
-                        dispatch_async(dispatch_get_main_queue()) { [unowned  weakLink] in
-                            weakLink.target?.performSelector(selector, withObject: object)
-                        }
-                    }
+        objc_sync_enter(self.observerSet)
+        
+        for obj in self.observerSet {
+            let weakLink = obj as! WeakLink
+            if let isResponse = weakLink.target?.respondsToSelector(selector) {
+                if isResponse {
+                    let observer = weakLink.target
+                    dispatch_async(dispatch_get_main_queue(),{ [unowned self] in
+                        observer?.performSelector(selector,
+                            withObject: self,
+                            withObject: object)
+                    })
                 }
             }
         }
+        
+        objc_sync_exit(self.observerSet)
     }
     
 // Only test method

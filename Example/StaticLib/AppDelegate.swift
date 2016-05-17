@@ -14,20 +14,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ObserverModelProtocol {
 
     var window: UIWindow?
 
-    func modelDidLoad() {
-        
+    func modelWillLoad(model: AbstractModel) {
+        print("=ModelWillLoad: \(model) \n \(self)")
     }
-
+    
+    func modelFailLoading(model: AbstractModel, withError error: NSError) {
+        print("=ModelWillLoad: \(model) \n \(self)")
+    }
+    
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
+        let observebl : AbstractModel = AbstractModel()
         
-        let observebl : ObservableObject = ObservableObject()
         observebl.registerObserver(self)
-        
-        let sel = #selector(AppDelegate.modelDidLoad)
-        
-        observebl.notifyObserversWithSelector(sel, andObject: nil)
-        
+        observebl.loading()
         observebl.unregisterObserver(self)
         
         print("End")

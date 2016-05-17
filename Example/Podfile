@@ -7,3 +7,4 @@ target 'StaticLib_Example' do
     pod 'Alamofire'
     
 end
+ 

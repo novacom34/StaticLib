@@ -64,7 +64,7 @@ public class AbstractModel : ObservableObject {
     public func unload() {
         
         self.state = .Unloaded
-        let s = "modelDidUnload"
+        let s = "modelDidUnload:"
         let selector = Selector(s)
         self.notifyObserversInMainThreadWithSelector(selector, andObject: nil)
         
@@ -73,17 +73,21 @@ public class AbstractModel : ObservableObject {
     public func loading() {
         
         self.state = .Loading
-        let s = "modelWillLoad"
+        let s = "modelWillLoad:"
         let selector = Selector(s)
-        self.notifyObserversInMainThreadWithSelector(selector, andObject: nil)
+        
+        //let lockQueue = dispatch_queue_create("com.unregisterObserver.queue222", nil)
+        //dispatch_sync(lockQueue) { [unowned self] in
+            self.notifyObserversInMainThreadWithSelector(selector, andObject: nil)
+        //}
+        
+        
         
     }//  State.Loading
     
     public func loadingWithProgress(progress: NSNumber) {
 
-        let s = "modelLoading:withError:"
-        let selector = Selector(s)
-        self.notifyObserversInMainThreadWithSelector(selector, andObject: progress)
+        
         
     }
     
@@ -96,6 +100,10 @@ public class AbstractModel : ObservableObject {
     }//  State.Canceled
     
     public func failloading(withError: NSError) {
+        
+        let s = "modelFailLoading:withError:"
+        let selector = Selector(s)
+        self.notifyObserversInMainThreadWithSelector(selector, andObject: withError)
         
     }//  State.Failed
     
@@ -111,6 +119,7 @@ public class AbstractModel : ObservableObject {
     public func performCanceled() {
         
     }
+    
 }
 
 

@@ -2,9 +2,11 @@
   "name": "StaticLib",
   "version": "0.1.0",
   "summary": "StaticLib is library for project.",
-  "description": "#TODO: Add long description of the pod here.\nlong description…",
+  "description": "StaticLib is base library for projects",
   "homepage": "https://github.com/novacom34/StaticLib",
-  "license": "MIT",
+  "license": {
+    "type": "MIT"
+  },
   "authors": {
     "Roma Novakov": "novacom34@gmail.com"
   },
