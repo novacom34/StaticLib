@@ -32,26 +32,9 @@ public class WeakLink : NSObject {
         return false
     }
     
+    deinit {
+        print("Deinit: \(self)")
+    }
+    
 }
-
-
-
-
-/*
- 
- #pragma mark - Public
- - (NSUInteger)hash {
-    return (NSInteger)self.target;
- }
- 
- - (BOOL)isEqual:(id)target {
-   if([target isKindOfClass:[SCWeakLink class]]) {
-      SCWeakLink *weakLink  = target;
-   return [self isEqualToWeakLink:weakLink];
- }
- 
- return NO;
- }
- 
- */
 

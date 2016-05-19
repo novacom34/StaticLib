@@ -10,7 +10,7 @@ import UIKit
 import StaticLib
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate, ObserverModelProtocol {
+class AppDelegate: UIResponder, UIApplicationDelegate, ObserverModelProtocol, ArrayModelObserver {
 
     var window: UIWindow?
 
@@ -22,15 +22,42 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ObserverModelProtocol {
         print("=ModelWillLoad: \(model) \n \(self)")
     }
     
+    func modelDidUnload(model: AbstractModel) {
+        //print("=modelDidUnload: \(model) \n \(self)")
+    }
+    
+    func modelLoading(model: AbstractModel, withProgress progress: NSNumber) {
+        let floatValue = progress.floatValue
+        print("floatValue: \(floatValue)")
+    }
+
+    func arrayModel(arrayModel: AbstractArrayModel, didAddElementsAtIndexs indexs: [Int]) {
+        
+    }
+    
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+        
         
         let observebl : AbstractModel = AbstractModel()
         
-        observebl.registerObserver(self)
-        observebl.loading()
-        observebl.unregisterObserver(self)
         
-        print("End")
+        let arrayModel = AbstractArrayModel()
+        
+        arrayModel.registerObserver(self)
+        
+        arrayModel.addModel(observebl)
+        arrayModel.addModel(observebl)
+        arrayModel.addModel(observebl)
+        
+//        //for i in 1...100_000 {
+//        let observebl : AbstractModel = AbstractModel()
+//        observebl.registerObserver(self)
+//        observebl.unload()
+//        observebl.loadingWithProgress(NSNumber(float: 0.4))
+//        observebl.unregisterObserver(self)
+//        //}
+//        
+//        print("End")
         
         return true
     }

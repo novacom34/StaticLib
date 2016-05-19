@@ -33,6 +33,7 @@
 		C7B6DD7C0456C50289A2C381DFE9FA3F /* MultipartFormData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B09F376C277F027BDCD54137D76C547 /* MultipartFormData.swift */; };
 		D1E87F714BF8178B72442229B7AC3F8D /* ObservableObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20CF2563E264DAB8C802ECC7375E45C5 /* ObservableObject.swift */; };
 		EFE92E8D3813DD26E78E93EEAF6D7E7E /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E2A29BA50E80B66E36C94B60FAD8863 /* Request.swift */; };
+		F6D991341CEDE30C00EAA83C /* AbstractArrayModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6D991331CEDE30C00EAA83C /* AbstractArrayModel.swift */; };
 		F82198F34DD14753A42F4328CD5E7A6B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E4E89230EF59BC255123B67864ACF77 /* Foundation.framework */; };
 		F98F47ED8C19860DB4F114CB27FC6EEA /* Pods-StaticLib_Example-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = E02ACCEFC6A614A3A847F3D89D9280BA /* Pods-StaticLib_Example-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FAC7977B3764B2B7336CD45CEB8D48F6 /* StaticLib-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = DA1C77988C978F68BD6ECDEFB1AD3A0F /* StaticLib-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -100,6 +101,7 @@
 		DDC2C7A48545D8C54D52554343225FB8 /* Response.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Response.swift; path = Source/Response.swift; sourceTree = "<group>"; };
 		E02ACCEFC6A614A3A847F3D89D9280BA /* Pods-StaticLib_Example-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-StaticLib_Example-umbrella.h"; sourceTree = "<group>"; };
 		E08B6463816F6E1DE3C1B3389B4E1419 /* Pods-StaticLib_Example-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-StaticLib_Example-dummy.m"; sourceTree = "<group>"; };
+		F6D991331CEDE30C00EAA83C /* AbstractArrayModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AbstractArrayModel.swift; sourceTree = "<group>"; };
 		F9039D48B1E893EF8AD87645A4FF820F /* Stream.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Stream.swift; path = Source/Stream.swift; sourceTree = "<group>"; };
 		F9278DA00F41E390EE68B6F3C8161C54 /* NetworkReachabilityManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NetworkReachabilityManager.swift; path = Source/NetworkReachabilityManager.swift; sourceTree = "<group>"; };
 		F9DEE62B6FC4EF2603FDCFDF5683C17C /* Pods-StaticLib_Example-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-StaticLib_Example-frameworks.sh"; sourceTree = "<group>"; };
@@ -223,6 +225,7 @@
 		78C3041A5952EA890FFA227DFD0F423C /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				F6D991331CEDE30C00EAA83C /* AbstractArrayModel.swift */,
 				8655B9FA8CFE095591731A47E5A77826 /* AbstractModel.swift */,
 				20CF2563E264DAB8C802ECC7375E45C5 /* ObservableObject.swift */,
 				12DB40D8C912B1E29D65923DAD3AB8AB /* WeakLink.swift */,
@@ -390,8 +393,6 @@
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
-			knownRegions = (
-			);
 			mainGroup = 7DB346D0F39D3F0E887471402A8071AB;
 			productRefGroup = E23FCFD970D24AA88BD0E0F1DA2EA73E /* Products */;
 			projectDirPath = "";
@@ -444,6 +445,7 @@
 			files = (
 				946FF1619872A617FD3ABFA5F89E241E /* AbstractModel.swift in Sources */,
 				D1E87F714BF8178B72442229B7AC3F8D /* ObservableObject.swift in Sources */,
+				F6D991341CEDE30C00EAA83C /* AbstractArrayModel.swift in Sources */,
 				088DC7BB055810DB77C469C674034860 /* StaticLib-dummy.m in Sources */,
 				1B7D43496024EE64851589B5CB025E80 /* WeakLink.swift in Sources */,
 			);
