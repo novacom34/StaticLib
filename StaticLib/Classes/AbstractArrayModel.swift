@@ -10,12 +10,16 @@ import Foundation
 
 
 @objc public protocol ArrayModelObserver : class {
- 
+    
     optional func arrayModelDidChange(arrayModel: AbstractArrayModel)
-    optional func arrayModel(arrayModel: AbstractArrayModel, didAddElementsAtIndexs indexs: [Int])
-    optional func arrayModel(arrayModel: AbstractArrayModel, didRemoveElementsAtIndexs indexs: [Int])
-    optional func arrayModel(arrayModel: AbstractArrayModel, didReplaceElementsAtIndexs indexs: [Int])
-    optional func arrayModel(arrayModel: AbstractArrayModel, didMoveElementAtIndexs indexs: Int, toIndex: Int)
+    optional func arrayModel(arrayModel: AbstractArrayModel,
+                             didAddElementsAtIndexs indexs: [Int])
+    optional func arrayModel(arrayModel: AbstractArrayModel,
+                             didRemoveElementsAtIndexs indexs: [Int])
+    optional func arrayModel(arrayModel: AbstractArrayModel,
+                             didReplaceElementsAtIndexs indexs: [Int])
+    optional func arrayModel(arrayModel: AbstractArrayModel,
+                             didMoveElementAtIndexs indexs: Int, toIndex: Int)
     
 }
 
@@ -24,7 +28,7 @@ public protocol AbstractArrayModelProtocol {
     // Add
     func addModel(model: AnyObject)
     func addModels(models: [AnyObject])
-    func insertModelsAtIndex(index: Int)
+    func insertModels(models: [AnyObject])
     func insertModel(model: AnyObject, atIndex index: Int)
     
     // Remove
@@ -42,6 +46,7 @@ public protocol AbstractArrayModelProtocol {
     
 }
 
+
 public class AbstractArrayModel : AbstractModel, AbstractArrayModelProtocol {
 
     private(set) public var array : Array = [AnyObject]()
@@ -58,11 +63,16 @@ public class AbstractArrayModel : AbstractModel, AbstractArrayModelProtocol {
         objc_sync_exit(self.array)
 
     }
+    
+    /**
+     Insert models after rest of the models
+     
+     - parameter models: new models
+     */
     public func addModels(models: [AnyObject]) {
         
         objc_sync_enter(self.array)
         
-        let selector = Selector("arrayModel:didAddElementsAtIndexs:")
         var indexs : [Int] = [Int]()
 
         for model in models {
@@ -70,22 +80,48 @@ public class AbstractArrayModel : AbstractModel, AbstractArrayModelProtocol {
             indexs.append(self.array.count-1)
         }
         
+        let selector = Selector("arrayModel:didAddElementsAtIndexs:")
         self.notifyObserversInMainThreadWithSelector(selector, andObject: indexs)
         
         objc_sync_exit(self.array)
         
     }
-    public func insertModelsAtIndex(index: Int) {
-        objc_sync_enter(self.array)
-        
-        
-        
-        objc_sync_exit(self.array)
-    }
+    
     public func insertModel(model: AnyObject, atIndex index: Int) {
         objc_sync_enter(self.array)
         
+        self.array.insert(model, atIndex: index)
         
+        var indexs : [Int] = [Int]()
+        indexs.append(index)
+        
+        let selector = Selector("arrayModel:didAddElementsAtIndexs:")
+        self.notifyObserversInMainThreadWithSelector(selector, andObject: indexs)
+        
+        objc_sync_exit(self.array)
+    }
+    
+    /**
+     Insert models before all rest of the models
+     
+     - parameter models: New models
+     */
+    public func insertModels(models: [AnyObject]) {
+        objc_sync_enter(self.array)
+        
+        let oldValues = self.array
+        var sumarryValues : [AnyObject] = models
+        sumarryValues+=oldValues
+        self.array.removeAll()
+        self.array += sumarryValues
+        
+        var indexs : [Int] = [Int]()
+        for var i = 0; i < models.count; i++ {
+            indexs.append(i)
+        }
+        
+        let selector = Selector("arrayModel:didAddElementsAtIndexs:")
+        self.notifyObserversInMainThreadWithSelector(selector, andObject: indexs)
         
         objc_sync_exit(self.array)
     }

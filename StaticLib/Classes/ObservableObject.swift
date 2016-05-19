@@ -20,6 +20,7 @@ public protocol ObservableProtocol {
 
 
 //MARK: - ObservableObject Protocol
+/// ObservableObject it's base class of all Observable Models in app.
 public class ObservableObject : NSObject, ObservableProtocol {
     
     private(set) public var observerSet : NSMutableSet = NSMutableSet()
@@ -27,7 +28,7 @@ public class ObservableObject : NSObject, ObservableProtocol {
     public func registerObserver(observer: NSObject) {
         
         objc_sync_enter(self.observerSet)
-        
+
         let weakLink = WeakLink(target: observer)
         self.observerSet.addObject(weakLink)
         
