@@ -49,7 +49,7 @@ public class ObservableObject : NSObject, ObservableProtocol {
    
     public func notifyObserversWithSelector(selector: Selector, andObject object: AnyObject?) {
         
-        objc_sync_enter(self.observerSet)
+        //objc_sync_enter(self.observerSet)
         
         for obj in self.observerSet {
             let weakLink = obj as! WeakLink
@@ -63,34 +63,33 @@ public class ObservableObject : NSObject, ObservableProtocol {
             }
         }
     
-        objc_sync_exit(self.observerSet)
+        //objc_sync_exit(self.observerSet)
         
     }
 
+    
     public func notifyObserversInMainThreadWithSelector(selector: Selector, andObject object: AnyObject?) {
-
-        objc_sync_enter(self.observerSet)
         
-        for obj in self.observerSet {
-            let weakLink = obj as! WeakLink
-            if let isResponse = weakLink.target?.respondsToSelector(selector) {
-                if isResponse {
-                    let observer = weakLink.target
-                    dispatch_async(dispatch_get_main_queue(), {[weak self] in
-                        observer?.performSelector(selector,
-                            withObject: self,
-                            withObject: object)
-                    })
-                }
-            }
+        /* // IF this function call in Main Thread - Main Thread is dealloc
+        dispatch_sync(dispatch_get_main_queue(), {[unowned self] in
+            self.notifyObserversWithSelector(selector, andObject: object)
+        })
+        */
+        
+        if NSThread.isMainThread() {
+            self.notifyObserversWithSelector(selector, andObject: object)
+        } else {
+            dispatch_sync(dispatch_get_main_queue(), {[unowned self] in
+                self.notifyObserversWithSelector(selector, andObject: object)
+            })
         }
-
-        objc_sync_exit(self.observerSet)
+ 
     }
 
+    
 // Only test method
     deinit {
-        print("Deinit: "+"\(self)")
+        //print("### Dealloc: "+"\(self)")
     }
     
 }

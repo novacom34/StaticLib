@@ -10,16 +10,31 @@ import UIKit
 import StaticLib
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate, ObserverModelProtocol, ArrayModelObserver {
+class AppDelegate: UIResponder, UIApplicationDelegate, ObserverModelProtocol, ObserverArrayModelProtocol {
 
     var window: UIWindow?
 
+    var arrayModel: AbstractArrayModel = AbstractArrayModel()
+    var observebl : AbstractModel = AbstractModel()
+    var array : Array = [AnyObject]()
+    
+    let accessQueue = dispatch_queue_create("com.novacom.thread", DISPATCH_QUEUE_SERIAL)
+//======================================= TEST ZONE ==========================================
+//============================================================================================
+//============================================================================================
+    
+    // MARK: - Model Observer Methods
+    
     func modelWillLoad(model: AbstractModel) {
-        print("=ModelWillLoad: \(model) \n \(self)")
+        print("ModelWillLoad")
+    }
+    
+    func modelDidLoad(model: AbstractModel) {
+        print("ModelDidLoad")
     }
     
     func modelFailLoading(model: AbstractModel, withError error: NSError) {
-        print("=ModelWillLoad: \(model) \n \(self)")
+        print("ModelFailLoading")
     }
     
     func modelDidUnload(model: AbstractModel) {
@@ -30,34 +45,88 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ObserverModelProtocol, Ar
         let floatValue = progress.floatValue
         print("floatValue: \(floatValue)")
     }
-
+    
+    // MARK: - Array Model Observer Methods
+    
     func arrayModel(arrayModel: AbstractArrayModel, didAddElementsAtIndexs indexs: [Int]) {
-        
+        print("Add elements with count: \(arrayModel.array.count)")
     }
     
+    func arrayModel(arrayModel: AbstractArrayModel,
+                    didMoveElementAtIndexs indexs: [Int])
+    {
+        print("Move elements with idxs: \(indexs)")
+    }
+    
+    func arrayModel(arrayModel: AbstractArrayModel, didRemoveElementsAtIndexs indexs: [Int]) {
+        print("Remove elements count: \(arrayModel.array.count)")
+    }
+    
+    
+    
+//======================================= TEST ZONE ==========================================
+//============================================================================================
+//============================================================================================
+    
+    
+    // MARK: - Implementation
+    
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+
+        self.arrayModel.registerObserver(self)
+        self.observebl.registerObserver(self)
+        
+        let obs1 = AbstractModel()
+        let obs2 = ObservableObject()
+        let obs3 = AbstractModel()
+        
+        dispatch_async(self.accessQueue) {
+
+            self.arrayModel.addModel(obs1)
+            self.arrayModel.addModels([obs2])
+            self.arrayModel.addModels([obs3])
+            
+        }
         
         
-        let observebl : AbstractModel = AbstractModel()
-        
-        
-        let arrayModel = AbstractArrayModel()
-        
-        arrayModel.registerObserver(self)
-        
-        arrayModel.addModel(observebl)
-        arrayModel.addModel(observebl)
-        arrayModel.addModel(observebl)
-        
-//        //for i in 1...100_000 {
-//        let observebl : AbstractModel = AbstractModel()
-//        observebl.registerObserver(self)
-//        observebl.unload()
-//        observebl.loadingWithProgress(NSNumber(float: 0.4))
-//        observebl.unregisterObserver(self)
-//        //}
+//        for i in 0...20 {
+//            
+//            let newQueue = dispatch_queue_create("com.novacom.test.thread\(i)", DISPATCH_QUEUE_SERIAL)
+//            self.array+=[newQueue]
+//            
+//            dispatch_async(newQueue) { [unowned self] in
+//                let obs = AbstractModel()
+//                self.arrayModel.addModel(obs)
+//            }
+//            print(i)
+//        }
 //        
-//        print("End")
+        
+        
+        /*
+        func addModel(model: AnyObject)
+        func addModels(models: [AnyObject])
+        func insertModels(models: [AnyObject])
+        func insertModel(model: AnyObject, atIndex index: Int)
+        
+        // Remove
+        func removeAllModels()
+        func removeModel(model: AnyObject)
+        func removeModelAtIndex(index: Int)
+        
+        // Move
+        func moveModelAtIndex(index: Int, toIndex newIndex: Int)
+        
+        // Replace
+        func replaceModel(model: AnyObject, atIndex index: Int)
+        */
+        
+        
+        
+        
+//        print(self.arrayModel.array)
+//        self.arrayModel.moveModelAtIndex(0, toIndex: 1)
+//        print(self.arrayModel.array)
         
         return true
     }

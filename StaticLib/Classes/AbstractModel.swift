@@ -62,7 +62,7 @@ public enum State {
 }
 
 
-public class AbstractModel : ObservableObject {
+public class AbstractModel : ObservableObject, ObservableModelProtocol {
 
     private(set) var state: State = State.Unloaded
 
@@ -81,7 +81,6 @@ public class AbstractModel : ObservableObject {
     }//  State.Loading
     
     public func loadingWithProgress(progress: NSNumber) {
-
         self.notifyObserversInMainThreadWithSelector(Selector("modelLoading:withProgress:"), andObject: progress)
         
     } // State.Loading
@@ -123,7 +122,7 @@ public class AbstractModel : ObservableObject {
         
     }//  State.Failed
     
-    /*
+    
     public func performLoading() {
         
     }
@@ -135,7 +134,7 @@ public class AbstractModel : ObservableObject {
     public func performCanceled() {
         
     }
-    */
+    
 }
 
 
