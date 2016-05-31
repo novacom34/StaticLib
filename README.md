@@ -6,11 +6,12 @@
 [![Platform](https://img.shields.io/cocoapods/p/StaticLib.svg?style=flat)](http://cocoapods.org/pods/StaticLib)
 
 ## Example
+ObservblModel is a base class of application.
 
 To run the example project, clone the repo, and run `pod install` from the Example directory first.
 
 ## Requirements
-
+IOS 7+
 ## Installation
 
 StaticLib is available through [CocoaPods](http://cocoapods.org). To install
