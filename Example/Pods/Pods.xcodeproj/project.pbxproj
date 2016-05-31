@@ -35,6 +35,8 @@
 		EFE92E8D3813DD26E78E93EEAF6D7E7E /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E2A29BA50E80B66E36C94B60FAD8863 /* Request.swift */; };
 		F60A40861CFB74360049C744 /* AbstractCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F60A40851CFB74360049C744 /* AbstractCell.swift */; };
 		F60A40891CFB7FBB0049C744 /* AbstractViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F60A40881CFB7FBB0049C744 /* AbstractViewModel.swift */; };
+		F60A40AE1CFCE04C0049C744 /* BaseCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F60A40AD1CFCE04C0049C744 /* BaseCoordinator.swift */; };
+		F60A40B01CFCE0580049C744 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F60A40AF1CFCE0580049C744 /* Coordinator.swift */; };
 		F644ED731CF9B7D000645798 /* AbstractTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F644ED721CF9B7D000645798 /* AbstractTableViewController.swift */; };
 		F644ED751CF9B7E600645798 /* AbstractCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F644ED741CF9B7E600645798 /* AbstractCollectionViewController.swift */; };
 		F6AE113C1CF71245007B3EC2 /* SectionArrayModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6AE113B1CF71245007B3EC2 /* SectionArrayModel.swift */; };
@@ -109,6 +111,8 @@
 		E08B6463816F6E1DE3C1B3389B4E1419 /* Pods-StaticLib_Example-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-StaticLib_Example-dummy.m"; sourceTree = "<group>"; };
 		F60A40851CFB74360049C744 /* AbstractCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AbstractCell.swift; sourceTree = "<group>"; };
 		F60A40881CFB7FBB0049C744 /* AbstractViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AbstractViewModel.swift; sourceTree = "<group>"; };
+		F60A40AD1CFCE04C0049C744 /* BaseCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseCoordinator.swift; sourceTree = "<group>"; };
+		F60A40AF1CFCE0580049C744 /* Coordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		F644ED721CF9B7D000645798 /* AbstractTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AbstractTableViewController.swift; sourceTree = "<group>"; };
 		F644ED741CF9B7E600645798 /* AbstractCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AbstractCollectionViewController.swift; sourceTree = "<group>"; };
 		F6AE113B1CF71245007B3EC2 /* SectionArrayModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SectionArrayModel.swift; sourceTree = "<group>"; };
@@ -237,6 +241,7 @@
 		78C3041A5952EA890FFA227DFD0F423C /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				F60A40AC1CFCE01C0049C744 /* Coordinator */,
 				F60A40871CFB7F9C0049C744 /* Abstract View Model */,
 				F60A40801CFB73C70049C744 /* Abstract Cells */,
 				F644ED711CF9B79500645798 /* Abstract View Controllers */,
@@ -327,6 +332,15 @@
 				F60A40881CFB7FBB0049C744 /* AbstractViewModel.swift */,
 			);
 			name = "Abstract View Model";
+			sourceTree = "<group>";
+		};
+		F60A40AC1CFCE01C0049C744 /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+				F60A40AD1CFCE04C0049C744 /* BaseCoordinator.swift */,
+				F60A40AF1CFCE0580049C744 /* Coordinator.swift */,
+			);
+			name = Coordinator;
 			sourceTree = "<group>";
 		};
 		F644ED711CF9B79500645798 /* Abstract View Controllers */ = {
@@ -490,11 +504,13 @@
 			files = (
 				946FF1619872A617FD3ABFA5F89E241E /* AbstractModel.swift in Sources */,
 				D1E87F714BF8178B72442229B7AC3F8D /* ObservableObject.swift in Sources */,
+				F60A40B01CFCE0580049C744 /* Coordinator.swift in Sources */,
 				F6D991341CEDE30C00EAA83C /* AbstractArrayModel.swift in Sources */,
 				088DC7BB055810DB77C469C674034860 /* StaticLib-dummy.m in Sources */,
 				1B7D43496024EE64851589B5CB025E80 /* WeakLink.swift in Sources */,
 				F60A40891CFB7FBB0049C744 /* AbstractViewModel.swift in Sources */,
 				F644ED731CF9B7D000645798 /* AbstractTableViewController.swift in Sources */,
+				F60A40AE1CFCE04C0049C744 /* BaseCoordinator.swift in Sources */,
 				F6AE113C1CF71245007B3EC2 /* SectionArrayModel.swift in Sources */,
 				F60A40861CFB74360049C744 /* AbstractCell.swift in Sources */,
 				F6ED5EA11CF8E3AF00C5A1D4 /* AbstractViewController.swift in Sources */,

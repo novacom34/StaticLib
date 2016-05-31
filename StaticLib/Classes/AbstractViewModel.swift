@@ -12,5 +12,4 @@ import Foundation
 public class AbstractViewModel : AbstractModel {
     
     
-    
 }
