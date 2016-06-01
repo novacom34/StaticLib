@@ -11,7 +11,7 @@ import UIKit
 
 public class BaseCoordinator: Coordinator {
     
-    public private(set) var childCoordinators: [Coordinator] = []
+    public var childCoordinators: [Coordinator] = []
     
     /**
      func start() must be overriden
