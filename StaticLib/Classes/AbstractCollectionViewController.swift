@@ -10,7 +10,7 @@ import Foundation
 
 
 
-class AbstractCollectionViewController : AbstractViewController {
+public class AbstractCollectionViewController : AbstractViewController {
     
     
     

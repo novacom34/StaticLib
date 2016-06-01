@@ -8,16 +8,16 @@
 
 import Foundation
 
-class AbstractViewController : UIViewController, ObserverModelProtocol, ObserverArrayModelProtocol {
+public class AbstractViewController : UIViewController, ObserverModelProtocol, ObserverArrayModelProtocol {
     
-    var modelArray : AbstractArrayModel? {
+    public var modelArray : AbstractArrayModel? {
         didSet {
             oldValue?.unregisterObserver(self)
             modelArray?.registerObserver(self)
         }
     }
     
-    var model : AbstractModel? {
+    public var model : AbstractModel? {
         didSet {
             oldValue?.unregisterObserver(self)
             model?.registerObserver(self)
@@ -26,7 +26,7 @@ class AbstractViewController : UIViewController, ObserverModelProtocol, Observer
     
     
     // MARK: - Life cycle
-    override func viewDidLoad() {
+    override public func viewDidLoad() {
         
   
     }
