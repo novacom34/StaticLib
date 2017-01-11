@@ -7,19 +7,19 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		01A975121AC2E52022E6C60C6C29CDBD /* AbstractModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F31CC5B66F905547628B43D8063C318 /* AbstractModel.swift */; };
-		27B7A98DD412AE3EF2CCBC5889AFF4CE /* ObservableObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 618A297359C8DF41018C3D65E52274C1 /* ObservableObject.swift */; };
-		2B706D075F57F51FED2F18DBFF390A12 /* StaticLib-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 768084F341B829D8AA68934FC017C787 /* StaticLib-dummy.m */; };
-		3C8E61ADAFFD418A63C17EFBF6B346F0 /* AbstractViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B8E3B5E8922B4F94B1B657A7A2405B3 /* AbstractViewModel.swift */; };
-		453D198A2EC55103F2C02F792CDCB903 /* AbstractArrayModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87897430429FD43A2017B32B51E37B1B /* AbstractArrayModel.swift */; };
-		4D08F81BADC3BB224FC60530A1C61AF0 /* WeakLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7DDD3194DF17DD4B40211B130471153 /* WeakLink.swift */; };
+		0B424540BC850629C2D2B603B6003183 /* AbstractCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 975C92CD32E1B04F0C78027BFB5B591B /* AbstractCell.swift */; };
+		301B6B54FC6B5ADD619C46B141A0A1A2 /* ObservableObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AB60A0014E71EF996C2BCE5C3A38DD8 /* ObservableObject.swift */; };
+		32298F52D20305F9A427B8592794D4EE /* AbstractArrayModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3225D0934B336F639E2AB90AC361AAD4 /* AbstractArrayModel.swift */; };
+		547913C24D51E2457342522431C48028 /* StaticLib-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 768084F341B829D8AA68934FC017C787 /* StaticLib-dummy.m */; };
 		60F4A31D9D93A0BF55404A539864C66C /* Pods-StaticLib_Example-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = E08B6463816F6E1DE3C1B3389B4E1419 /* Pods-StaticLib_Example-dummy.m */; };
 		6D088A592B141F250794D2BC2C7A3869 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBB3DE36805AF21409EC968A9691732F /* Foundation.framework */; };
 		6EA51922056C15836A263BA4328EDF2A /* Pods-StaticLib_Example-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = E02ACCEFC6A614A3A847F3D89D9280BA /* Pods-StaticLib_Example-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		9ADCE209D5758DB5525AE3AED0B8FE65 /* AbstractViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38B1D03D30C2B74B0431F8E7BB002E34 /* AbstractViewController.swift */; };
 		A66A1D739BA6378C082564C63B7B7A4B /* StaticLib-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 0556D16949805F7522C914AC8C0C2E01 /* StaticLib-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		BA55DB5286D63A64B728AC9DD471B890 /* AbstractViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B261CD9275278A6E05BCDA2AEC2E289 /* AbstractViewController.swift */; };
-		C12D1316AD14EFC6601F855D81927235 /* AbstractCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5ACD467D5C39AD6B7C400F1651FF8C /* AbstractCell.swift */; };
-		E1CAB3BE9AFD72C7FD63AF8C0A78EE2F /* AbstractView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6C7285427EAFD8B56D6A48ADDC045F /* AbstractView.swift */; };
+		B30A8BD2DAEF6C3DB01468A7C87702BB /* WeakLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49CBD529D88BF8492BEDCBC26F862395 /* WeakLink.swift */; };
+		CD0C9BE844373039DC72AC43ADA082C1 /* AbstractViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE94E109B7969436B1A6DB6823E4DBF /* AbstractViewModel.swift */; };
+		D77CEBD817CD56230C4915E0DEEB0CA1 /* AbstractView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69AC91AE36DF98325A6F4874DCABA56C /* AbstractView.swift */; };
+		F3BCE43BFE4DFD762B1C7E80DC980CEF /* AbstractModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFCE3F29200086D646808A059181140A /* AbstractModel.swift */; };
 		F8CC13FFF41C1CB9E6DECF8E087266A4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBB3DE36805AF21409EC968A9691732F /* Foundation.framework */; };
 /* End PBXBuildFile section */
 
@@ -34,30 +34,30 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		01EE280AA5A0CCE77F225290201B241B /* StaticLib.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = StaticLib.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		01EE280AA5A0CCE77F225290201B241B /* StaticLib.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = StaticLib.framework; path = StaticLib.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0556D16949805F7522C914AC8C0C2E01 /* StaticLib-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "StaticLib-umbrella.h"; sourceTree = "<group>"; };
-		0B8E3B5E8922B4F94B1B657A7A2405B3 /* AbstractViewModel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AbstractViewModel.swift; sourceTree = "<group>"; };
-		2A5ACD467D5C39AD6B7C400F1651FF8C /* AbstractCell.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AbstractCell.swift; sourceTree = "<group>"; };
+		2AB60A0014E71EF996C2BCE5C3A38DD8 /* ObservableObject.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ObservableObject.swift; sourceTree = "<group>"; };
+		3225D0934B336F639E2AB90AC361AAD4 /* AbstractArrayModel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AbstractArrayModel.swift; sourceTree = "<group>"; };
 		33B54328D1EFEE7C5B57B2AE8C8875C4 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		41A3C1A3C50BE13987C5656F36D20DA1 /* Pods-StaticLib_Example.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Pods-StaticLib_Example.modulemap"; sourceTree = "<group>"; };
+		38B1D03D30C2B74B0431F8E7BB002E34 /* AbstractViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AbstractViewController.swift; sourceTree = "<group>"; };
+		41A3C1A3C50BE13987C5656F36D20DA1 /* Pods-StaticLib_Example.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = "Pods-StaticLib_Example.modulemap"; sourceTree = "<group>"; };
+		49CBD529D88BF8492BEDCBC26F862395 /* WeakLink.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = WeakLink.swift; sourceTree = "<group>"; };
+		4CE94E109B7969436B1A6DB6823E4DBF /* AbstractViewModel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AbstractViewModel.swift; sourceTree = "<group>"; };
 		51B54ED2C2D7183A476242B1DFCCF488 /* StaticLib.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = StaticLib.xcconfig; sourceTree = "<group>"; };
 		5283011A8C873D83D5C7C3A14F3B756C /* Pods-StaticLib_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-StaticLib_Example.debug.xcconfig"; sourceTree = "<group>"; };
-		5632BD2F696D1967D3DF5B29C1546BFA /* StaticLib.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = StaticLib.modulemap; sourceTree = "<group>"; };
-		5B261CD9275278A6E05BCDA2AEC2E289 /* AbstractViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AbstractViewController.swift; sourceTree = "<group>"; };
+		5632BD2F696D1967D3DF5B29C1546BFA /* StaticLib.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = StaticLib.modulemap; sourceTree = "<group>"; };
 		5CE50D32988774FC98771A5D9A2FAF15 /* Pods-StaticLib_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-StaticLib_Example.release.xcconfig"; sourceTree = "<group>"; };
 		5E7B95077EC2BE404B68CAFFC14864D3 /* Pods-StaticLib_Example-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-StaticLib_Example-resources.sh"; sourceTree = "<group>"; };
 		60C3AF6FB13E2B3E7E8FC598A89B11C1 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		618A297359C8DF41018C3D65E52274C1 /* ObservableObject.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ObservableObject.swift; sourceTree = "<group>"; };
+		69AC91AE36DF98325A6F4874DCABA56C /* AbstractView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AbstractView.swift; sourceTree = "<group>"; };
 		768084F341B829D8AA68934FC017C787 /* StaticLib-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "StaticLib-dummy.m"; sourceTree = "<group>"; };
 		84DF30D5FB52774E8188CEF651937552 /* Pods-StaticLib_Example-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-StaticLib_Example-acknowledgements.markdown"; sourceTree = "<group>"; };
-		87897430429FD43A2017B32B51E37B1B /* AbstractArrayModel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AbstractArrayModel.swift; sourceTree = "<group>"; };
-		8A6C7285427EAFD8B56D6A48ADDC045F /* AbstractView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AbstractView.swift; sourceTree = "<group>"; };
-		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		9F31CC5B66F905547628B43D8063C318 /* AbstractModel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AbstractModel.swift; sourceTree = "<group>"; };
+		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		975C92CD32E1B04F0C78027BFB5B591B /* AbstractCell.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AbstractCell.swift; sourceTree = "<group>"; };
 		CA51C588E9A49B2680ABE9A71DC1ED00 /* StaticLib-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "StaticLib-prefix.pch"; sourceTree = "<group>"; };
 		CBB3DE36805AF21409EC968A9691732F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
-		D1E7F5D419A7E0F8BD576EFBCA3DC9E0 /* Pods_StaticLib_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_StaticLib_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		D7DDD3194DF17DD4B40211B130471153 /* WeakLink.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = WeakLink.swift; sourceTree = "<group>"; };
+		CFCE3F29200086D646808A059181140A /* AbstractModel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AbstractModel.swift; sourceTree = "<group>"; };
+		D1E7F5D419A7E0F8BD576EFBCA3DC9E0 /* Pods_StaticLib_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_StaticLib_Example.framework; path = "Pods-StaticLib_Example.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D8452CB9C3465A48BE64C4AF4973D587 /* Pods-StaticLib_Example-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-StaticLib_Example-acknowledgements.plist"; sourceTree = "<group>"; };
 		E02ACCEFC6A614A3A847F3D89D9280BA /* Pods-StaticLib_Example-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-StaticLib_Example-umbrella.h"; sourceTree = "<group>"; };
 		E08B6463816F6E1DE3C1B3389B4E1419 /* Pods-StaticLib_Example-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-StaticLib_Example-dummy.m"; sourceTree = "<group>"; };
@@ -112,14 +112,6 @@
 			);
 			sourceTree = "<group>";
 		};
-		806F36282C1D6DFC490B155D954598B9 /* StaticLib */ = {
-			isa = PBXGroup;
-			children = (
-				A0E84F3DD15A2D76B2891C50D534BB92 /* Classes */,
-			);
-			path = StaticLib;
-			sourceTree = "<group>";
-		};
 		83AD23F0EAFF50C97DA7F5F43344EE4B /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
@@ -155,26 +147,11 @@
 		9F7786718F4D309B56204DD803D29BBF /* StaticLib */ = {
 			isa = PBXGroup;
 			children = (
-				806F36282C1D6DFC490B155D954598B9 /* StaticLib */,
+				CCDB6CCF87D10275AF8D7DD2ADDA2426 /* StaticLib */,
 				83AD23F0EAFF50C97DA7F5F43344EE4B /* Support Files */,
 			);
 			name = StaticLib;
 			path = ../..;
-			sourceTree = "<group>";
-		};
-		A0E84F3DD15A2D76B2891C50D534BB92 /* Classes */ = {
-			isa = PBXGroup;
-			children = (
-				2A5ACD467D5C39AD6B7C400F1651FF8C /* AbstractCell.swift */,
-				8A6C7285427EAFD8B56D6A48ADDC045F /* AbstractView.swift */,
-				0B8E3B5E8922B4F94B1B657A7A2405B3 /* AbstractViewModel.swift */,
-				5B261CD9275278A6E05BCDA2AEC2E289 /* AbstractViewController.swift */,
-				87897430429FD43A2017B32B51E37B1B /* AbstractArrayModel.swift */,
-				9F31CC5B66F905547628B43D8063C318 /* AbstractModel.swift */,
-				618A297359C8DF41018C3D65E52274C1 /* ObservableObject.swift */,
-				D7DDD3194DF17DD4B40211B130471153 /* WeakLink.swift */,
-			);
-			path = Classes;
 			sourceTree = "<group>";
 		};
 		B9B51803A1C60DC6FBE7426A022D3E26 /* Targets Support Files */ = {
@@ -199,6 +176,31 @@
 				9F7786718F4D309B56204DD803D29BBF /* StaticLib */,
 			);
 			name = "Development Pods";
+			sourceTree = "<group>";
+		};
+		CCDB6CCF87D10275AF8D7DD2ADDA2426 /* StaticLib */ = {
+			isa = PBXGroup;
+			children = (
+				D1FC3A718BC79D1FEB0EE41688CAEA7B /* Classes */,
+			);
+			name = StaticLib;
+			path = StaticLib;
+			sourceTree = "<group>";
+		};
+		D1FC3A718BC79D1FEB0EE41688CAEA7B /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				3225D0934B336F639E2AB90AC361AAD4 /* AbstractArrayModel.swift */,
+				975C92CD32E1B04F0C78027BFB5B591B /* AbstractCell.swift */,
+				CFCE3F29200086D646808A059181140A /* AbstractModel.swift */,
+				69AC91AE36DF98325A6F4874DCABA56C /* AbstractView.swift */,
+				38B1D03D30C2B74B0431F8E7BB002E34 /* AbstractViewController.swift */,
+				4CE94E109B7969436B1A6DB6823E4DBF /* AbstractViewModel.swift */,
+				2AB60A0014E71EF996C2BCE5C3A38DD8 /* ObservableObject.swift */,
+				49CBD529D88BF8492BEDCBC26F862395 /* WeakLink.swift */,
+			);
+			name = Classes;
+			path = Classes;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -227,7 +229,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = A5DCAAB933194A63422EF535E57F6F78 /* Build configuration list for PBXNativeTarget "StaticLib" */;
 			buildPhases = (
-				8CC808E68D3D03454786755056982E23 /* Sources */,
+				DC135FEE6A1AA69626755D4F6A701E10 /* Sources */,
 				4C9ED4F12E41F3EEA1D6D6A17A28A98C /* Frameworks */,
 				65EE0CE79868B6391E5A40D98F0DF1B6 /* Headers */,
 			);
@@ -294,19 +296,19 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		8CC808E68D3D03454786755056982E23 /* Sources */ = {
+		DC135FEE6A1AA69626755D4F6A701E10 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				453D198A2EC55103F2C02F792CDCB903 /* AbstractArrayModel.swift in Sources */,
-				C12D1316AD14EFC6601F855D81927235 /* AbstractCell.swift in Sources */,
-				01A975121AC2E52022E6C60C6C29CDBD /* AbstractModel.swift in Sources */,
-				E1CAB3BE9AFD72C7FD63AF8C0A78EE2F /* AbstractView.swift in Sources */,
-				BA55DB5286D63A64B728AC9DD471B890 /* AbstractViewController.swift in Sources */,
-				3C8E61ADAFFD418A63C17EFBF6B346F0 /* AbstractViewModel.swift in Sources */,
-				27B7A98DD412AE3EF2CCBC5889AFF4CE /* ObservableObject.swift in Sources */,
-				2B706D075F57F51FED2F18DBFF390A12 /* StaticLib-dummy.m in Sources */,
-				4D08F81BADC3BB224FC60530A1C61AF0 /* WeakLink.swift in Sources */,
+				32298F52D20305F9A427B8592794D4EE /* AbstractArrayModel.swift in Sources */,
+				0B424540BC850629C2D2B603B6003183 /* AbstractCell.swift in Sources */,
+				F3BCE43BFE4DFD762B1C7E80DC980CEF /* AbstractModel.swift in Sources */,
+				D77CEBD817CD56230C4915E0DEEB0CA1 /* AbstractView.swift in Sources */,
+				9ADCE209D5758DB5525AE3AED0B8FE65 /* AbstractViewController.swift in Sources */,
+				CD0C9BE844373039DC72AC43ADA082C1 /* AbstractViewModel.swift in Sources */,
+				301B6B54FC6B5ADD619C46B141A0A1A2 /* ObservableObject.swift in Sources */,
+				547913C24D51E2457342522431C48028 /* StaticLib-dummy.m in Sources */,
+				B30A8BD2DAEF6C3DB01468A7C87702BB /* WeakLink.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
