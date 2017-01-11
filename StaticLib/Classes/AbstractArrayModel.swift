@@ -8,283 +8,210 @@
 
 import Foundation
 
-
+// MARK: - ObserverArrayModelProtocol
 @objc public protocol ObserverArrayModelProtocol : class {
     
-    optional func arrayModelDidChange(arrayModel: AbstractArrayModel)
-    optional func arrayModel(arrayModel: AbstractArrayModel,
-                             didAddElementsAtIndexs indexs: [Int])
-    optional func arrayModel(arrayModel: AbstractArrayModel,
-                             didRemoveElementsAtIndexs indexs: [Int])
-    optional func arrayModel(arrayModel: AbstractArrayModel,
-                             didReplaceElementsAtIndexs indexs: [Int])
-    optional func arrayModel(arrayModel: AbstractArrayModel,
-                             didMoveElementAtIndexs indexs: [Int])
-    
+    @objc optional func arrayModelDidChange(_ arrayModel: AbstractArrayModel)
+    @objc optional func arrayModel(_ arrayModel: AbstractArrayModel, didAddElementsAtIndexs indexs: NSArray)
+    @objc optional func arrayModel(_ arrayModel: AbstractArrayModel, didRemoveElementsAtIndexs indexs: NSArray)
+    @objc optional func arrayModel(_ arrayModel: AbstractArrayModel, didReplaceElementAtIndex index: NSIndexPath)
+    @objc optional func arrayModel(_ arrayModel: AbstractArrayModel, didMoveElementAtIndexs indexs: NSArray)
 }
 
+
+// MARK: - AbstractArrayModelProtocol
 public protocol AbstractArrayModelProtocol {
     
     // Add
-    func addModel(model: ObservableObject)
-    func addModels(models: [ObservableObject])
-    func insertModels(models: [ObservableObject])
-    func insertModel(model: ObservableObject, atIndex index: Int)
+    func addModel(_ model: ObservableObject)
+    func addModels(_ models: [ObservableObject])
+    func insertModels(_ models: [ObservableObject])
+    func insertModel(_ model: ObservableObject, atIndex index: Int)
     
     // Remove
     func removeAllModels()
-    func removeModel(model: ObservableObject)
-    func removeModelAtIndex(index: Int)
+    func removeModel(_ model: ObservableObject)
+    func removeModelAtIndex(_ index: Int)
     
     // Move
-    func moveModelAtIndex(index: Int, toIndex newIndex: Int)
+    func moveModelAtIndex(_ index: Int, toIndex newIndex: Int)
     
     // Replace
-    func replaceModel(model: ObservableObject, atIndex index: Int)
-    
+    func replaceModel(_ model: ObservableObject, atIndex index: Int)
 }
 
-public class AbstractArrayModel : AbstractModel, AbstractArrayModelProtocol {
 
-    public private(set) var array : [ObservableObject] = []
+// MARK: - AbstractArrayModel
+open class AbstractArrayModel : AbstractModel, AbstractArrayModelProtocol {
     
-    let safeQueue = dispatch_queue_create("com.model.safeAccessThread", DISPATCH_QUEUE_SERIAL)
-    
-    public var count : Int {
-        return self.array.count
+    open var count : Int {
+        let arrayCopy = mutableArray.copy() as! NSArray
+        return arrayCopy.count
     }
     
-    public func addModel(model: ObservableObject) {
-        
-        dispatch_barrier_sync(safeQueue) { [unowned self] in
-            self.array.append(model)
+    // Public
+    open var array : NSArray  {
+        get {
+            return mutableArray.copy() as! NSArray
         }
-        
-        let selector = Selector("arrayModel:didAddElementsAtIndexs:")
-        self.notifyObserversInMainThreadWithSelector(selector, andObject: [self.array.count-1])
-        
+    }
+    
+    // Private
+    private var mutableArray : NSMutableArray = NSMutableArray()
+    
+    open func addModel(_ model: ObservableObject) {
+        self.safeQueue.sync(flags: .barrier, execute: { [unowned self] in
+            self.mutableArray.add(model)
+            let indexPath = NSIndexPath(index: self.mutableArray.count-1)
+            let selector = #selector(ObserverArrayModelProtocol.arrayModel(_:didAddElementsAtIndexs:))
+            self.notifyObserversInMainThreadWithSelector(selector, andObject: NSArray(object: indexPath))
+        })
     }
 
-    public func addModels(models: [ObservableObject]) {
+    
+    // ===================================================================
+    // MARK: - Add
+    // ===================================================================
+    
+    open func addModels(_ models: [ObservableObject]) {
         
-        objc_sync_enter(self.array)
-        
-        var indexs : [Int] = [Int]()
-        
-        for model in models {
+        self.safeQueue.sync(flags: .barrier, execute: { [unowned self] in
+    
+            let beforeCount = self.mutableArray.count
+            self.mutableArray.addObjects(from: models)
+            let afterCount = self.mutableArray.count
             
-            dispatch_barrier_sync(safeQueue) { [unowned self] in
-                self.array.append(model)
+            var mutableIndexPaths : [AnyObject] = []
+            
+            for index in beforeCount...afterCount-1 {
+                 let indexPath = NSIndexPath(index: index)
+                mutableIndexPaths.append(indexPath)
             }
-            indexs.append(self.array.count-1)
-        }
-        
-        objc_sync_exit(self.array)
-        
-        
-        let selector = Selector("arrayModel:didAddElementsAtIndexs:")
-        self.notifyObserversInMainThreadWithSelector(selector, andObject: [self.array.count-1])
-        // end
+
+            let indexArray = NSArray(array: mutableIndexPaths)
+            let selector = #selector(ObserverArrayModelProtocol.arrayModel(_:didAddElementsAtIndexs:))
+            self.notifyObserversInMainThreadWithSelector(selector, andObject: indexArray)
+        })
     }
     
-    public func insertModels(models: [ObservableObject]) {
+    open func insertModel(_ model: ObservableObject, atIndex index: Int) {
         
-    }
-    
-    public func insertModel(model: ObservableObject, atIndex index: Int) {
-        
-    }
-    
-    // Remove
-    public func removeAllModels() {
-        
-    }
-    
-    /**
-     This method  bala bal bala
-     
-     - parameter model: Model need vla
-     */
-    public func removeModel(model: ObservableObject) {
-        if self.array.count>0 {
+        safeQueue.sync(flags: .barrier, execute: { [unowned self] in
             
-            let selector = Selector("arrayModel:didRemoveElementsAtIndexs:")
-            self.notifyObserversInMainThreadWithSelector(selector, andObject: [self.array.count-1])
-        }
+            self.mutableArray.insert(model, at: index)
+            let indexPath = NSIndexPath(index: index)
+            let selector = #selector(ObserverArrayModelProtocol.arrayModel(_:didAddElementsAtIndexs:))
+            self.notifyObserversInMainThreadWithSelector(selector, andObject: NSArray(object: indexPath))
+        })
     }
     
-    public func removeModelAtIndex(index: Int) {
+    open func insertModels(_ models: [ObservableObject]) {
         
-    }
-    
-    // Move
-    public func moveModelAtIndex(index: Int, toIndex newIndex: Int) {
-        
-    }
-    
-    // Replace
-    public func replaceModel(model: ObservableObject, atIndex index: Int) {
-        
-    }
- 
-    
-    
-    
-    
-    
-    
-    
-    
+        safeQueue.sync(flags: .barrier, execute: { [unowned self] in
+            
+            var oldArray = self.mutableArray.copy() as! NSArray
+            self.mutableArray.removeAllObjects()
+            self.mutableArray.addObjects(from: models)
+            
+            var mutableIndexPaths : [AnyObject] = []
+            
+            for index in 0 ..< self.mutableArray.count {
+                let indexPath = NSIndexPath(index: index)
+                mutableIndexPaths.append(indexPath)
+            }
 
-    /*
-    //=======================================================
-    public func addModel(model: AnyObject) {
+            let indexArray = NSArray(array: mutableIndexPaths)
+            let selector = #selector(ObserverArrayModelProtocol.arrayModel(_:didAddElementsAtIndexs:))
+            self.notifyObserversInMainThreadWithSelector(selector, andObject: indexArray)
+        })
+    }
+    
+    
+    // ======================================================================
+    // MARK: - Remove
+    // ======================================================================
+    
+    open func removeAllModels() {
+        
+        safeQueue.sync(flags: .barrier, execute: { [unowned self] in
+    
+            self.mutableArray.removeAllObjects()
+            let selector = #selector(ObserverArrayModelProtocol.arrayModelDidChange(_:))
+            self.notifyObserversInMainThreadWithSelector(selector, andObject: nil)
+        })
+    }
+    
+    open func removeModel(_ model: ObservableObject) {
+        
+        safeQueue.sync(flags: .barrier, execute: { [unowned self] in
+            
+            let modelIndex = self.mutableArray.index(of: model)
+            self.mutableArray.remove(model)
+            let indexPath = NSIndexPath(index: modelIndex)
+            
+            let selector = #selector(ObserverArrayModelProtocol.arrayModel(_:didRemoveElementsAtIndexs:))
+            self.notifyObserversInMainThreadWithSelector(selector, andObject: NSArray(object: indexPath))
+        })
+    }
+    
+    open func removeModelAtIndex(_ index: Int) {
+        
+        safeQueue.sync(flags: .barrier, execute: { [unowned self] in
+            
+            if index<self.mutableArray.count
+            {
+                self.mutableArray.removeObject(at: index)
+                let indexPath = NSIndexPath(index: index)
+                let selector = #selector(ObserverArrayModelProtocol.arrayModel(_:didRemoveElementsAtIndexs:))
+                self.notifyObserversInMainThreadWithSelector(selector, andObject: NSArray(object: indexPath))
+            }
+        })
+    }
 
-        objc_sync_enter(self.mutableArray)
+    
+    // ======================================================================
+    // MARK: - Move
+    // ======================================================================
+    
+    open func moveModelAtIndex(_ index: Int, toIndex newIndex: Int) {
         
-        self.mutableArray.addObject(model)
-        
-        let selector = Selector("arrayModel:didAddElementsAtIndexs:")
-        self.notifyObserversInMainThreadWithSelector(selector, andObject: [self.mutableArray.count-1])
-        
-        
-        objc_sync_exit(self.mutableArray)
+        safeQueue.sync(flags: .barrier, execute: { [unowned self] in
+            
+            if index<self.mutableArray.count && newIndex<self.mutableArray.count
+            {
+                let model = self.mutableArray[index]
+                self.mutableArray.removeObject(at: index)
+                self.mutableArray.insert(model, at: newIndex)
+                
+                let oldIndexPath = NSIndexPath(index: index)
+                let newIndexPath = NSIndexPath(index: newIndex)
+                
+                let selector = #selector(ObserverArrayModelProtocol.arrayModel(_:didMoveElementAtIndexs:))
+                self.notifyObserversInMainThreadWithSelector(selector, andObject: NSArray(array: [oldIndexPath, newIndexPath]))
+            }
+        })
+    }
 
+    
+    // ======================================================================
+    // MARK: - Replace
+    // ======================================================================
+    
+    open func replaceModel(_ model: ObservableObject, atIndex index: Int) {
+        
+        safeQueue.sync(flags: .barrier, execute: { [unowned self] in
+        
+            if index<self.mutableArray.count
+            {
+                self.mutableArray.replaceObject(at: index, with: model)
+                let selector = #selector(ObserverArrayModelProtocol.arrayModel(_:didReplaceElementAtIndex:))
+                self.notifyObserversInMainThreadWithSelector(selector, andObject: NSIndexPath(index: index))
+            }
+        })
     }
-    
-    
-    //=======================================================
-    /**
-     Insert models after rest of the models
-     
-     - parameter models: new models
-     */
-    public func addModels(models: [AnyObject]) {
-        
-        objc_sync_enter(self.mutableArray)
-        
-        var indexs : [Int] = [Int]()
-
-        for model in models {
-            self.mutableArray.addObject(model)
-            indexs.append(self.array.count-1)
-        }
-        
-        let selector = Selector("arrayModel:didAddElementsAtIndexs:")
-        self.notifyObserversInMainThreadWithSelector(selector, andObject: indexs)
-        
-        objc_sync_exit(self.mutableArray)
-        
-    }
-    
-    //=======================================================
-    public func insertModel(model: AnyObject, atIndex index: Int) {
-        objc_sync_enter(self.mutableArray)
-        
-        self.mutableArray.insertObject(model, atIndex: index)
-        
-        var indexs : [Int] = [Int]()
-        
-        indexs.append(index)
-        
-        let selector = Selector("arrayModel:didAddElementsAtIndexs:")
-        self.notifyObserversInMainThreadWithSelector(selector, andObject: indexs)
-        
-        objc_sync_exit(self.mutableArray)
-    }
-    
-    //=======================================================
-    /**
-     Insert models before all rest of the models
-     - parameter models: New models
-     */
-    public func insertModels(models: [AnyObject]) {
-        
-        objc_sync_enter(self.mutableArray)
-        
-        let oldValues = NSArray(array: self.mutableArray)
-        self.mutableArray.removeAllObjects()
-        self.mutableArray.addObjectsFromArray(models)
-        self.mutableArray.addObjectsFromArray(oldValues as [AnyObject])
-        
-        var indexs : [Int] = [Int]()
-        for var i = 0; i < models.count; i++ {
-            indexs.append(i)
-        }
-        
-        let selector = Selector("arrayModel:didAddElementsAtIndexs:")
-        self.notifyObserversInMainThreadWithSelector(selector, andObject: indexs)
-        
-        objc_sync_exit(self.mutableArray)
-    }
-    
-    //=======================================================
-    public func removeAllModels() {
-        objc_sync_enter(self.mutableArray)
-
-        self.mutableArray.removeAllObjects()
-        let selector = Selector("arrayModelDidChange:")
-        self.notifyObserversInMainThreadWithSelector(selector, andObject: nil)
-        
-        objc_sync_exit(self.mutableArray)
-    }
-    
-    //=======================================================
-    
-    public func removeModel(model: AnyObject) {
-        objc_sync_enter(self.mutableArray)
-        
-        var indexs : [Int] = [Int]()
-        indexs+=[self.mutableArray.indexOfObject(model)]
-        self.mutableArray.removeObject(model)
-        
-        let selector = Selector("arrayModel:didRemoveElementsAtIndexs:")
-        self.notifyObserversInMainThreadWithSelector(selector, andObject: indexs)
-
-        objc_sync_exit(self.mutableArray)
-    }
-    
-    //=======================================================
-    public func removeModelAtIndex(index: Int) {
-        objc_sync_enter(self.mutableArray)
-        
-        self.mutableArray.removeObjectAtIndex(index)
-        var indexs : [Int] = [Int]()
-        indexs+=[index]
-        let selector = Selector("arrayModel:didRemoveElementsAtIndexs:")
-        self.notifyObserversInMainThreadWithSelector(selector, andObject: indexs)
-
-        objc_sync_exit(self.mutableArray)
-    }
-    
-    //=======================================================
-    public func moveModelAtIndex(index: Int, toIndex newIndex: Int) {
-        objc_sync_enter(self.mutableArray)
-        
-        let model = self.mutableArray[index]
-        self.mutableArray.removeObjectAtIndex(index)
-        self.mutableArray.insertObject(model, atIndex: newIndex)
-        
-        var indexs : [Int] = [Int]()
-        indexs+=[index, newIndex]
-
-        let selector = Selector("arrayModel:didMoveElementAtIndexs:")
-        self.notifyObserversInMainThreadWithSelector(selector, andObject: indexs)
-        
-        objc_sync_exit(self.mutableArray)
-    }
-    
-    //=======================================================
-    public func replaceModel(model: AnyObject, atIndex index: Int) {
-        objc_sync_enter(self.mutableArray)
-        
-        self.mutableArray.replaceObjectAtIndex(index, withObject: model)
-        let selector = Selector("arrayModel:didReplaceElementsAtIndexs:")
-        self.notifyObserversInMainThreadWithSelector(selector, andObject: [index])
-        
-        objc_sync_exit(self.mutableArray)
-    }
-*/
-    
 }
+
+//=============================================================================================================
+//=============================================================================================================
+
 

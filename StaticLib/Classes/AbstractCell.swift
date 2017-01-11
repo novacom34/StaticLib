@@ -20,7 +20,7 @@ import Foundation
 // MARK: - ====== Abstract Cell Protocol ======
 public protocol AbstractCellProtocol {
     
-    func fillWithViewModel(viewModel: AbstractViewModel)
+    func fillWithViewModel(_ viewModel: AbstractViewModel)
     weak var viewModel: AbstractViewModel? {get set}
     weak var delegat: NSObject? {get set}
     
@@ -29,10 +29,10 @@ public protocol AbstractCellProtocol {
 
 
 // MARK: - ====== Abstract TableView Cell Class ======
-public class AbstractTableViewCell : UITableViewCell, AbstractCellProtocol, ObserverModelProtocol {
+open class AbstractTableViewCell : UITableViewCell, AbstractCellProtocol, ObserverModelProtocol {
     
-    public weak var delegat: NSObject?
-    public weak var viewModel: AbstractViewModel?{
+    open weak var delegat: NSObject?
+    open weak var viewModel: AbstractViewModel?{
         didSet {
             oldValue?.unregisterObserver(self)
             viewModel?.registerObserver(self)
@@ -40,41 +40,41 @@ public class AbstractTableViewCell : UITableViewCell, AbstractCellProtocol, Obse
     }
     
     // MARK: Abstract Cell Protocol Methods
-    public func fillWithViewModel(viewModel: AbstractViewModel) {
+    open func fillWithViewModel(_ viewModel: AbstractViewModel) {
         
     }
     
     // MARK: Observer Model Methods
     
-    public func modelWillLoad(model: AbstractModel) {
+    open func modelWillLoad(_ model: AbstractModel) {
         
     }
     
-    public func modelDidLoad(model: AbstractModel) {
+    open func modelDidLoad(_ model: AbstractModel) {
         
     }
     
-    public func modelWillReload(model: AbstractModel) {
+    open func modelWillReload(_ model: AbstractModel) {
         
     }
     
-    public func modelDidReload(model: AbstractModel) {
+    open func modelDidReload(_ model: AbstractModel) {
         
     }
     
-    public func modelDidUnload(model: AbstractModel) {
+    open func modelDidUnload(_ model: AbstractModel) {
         
     }
     
-    public func modelDidCancel(model: AbstractModel) {
+    open func modelDidCancel(_ model: AbstractModel) {
         
     }
     
-    public func modelLoading(model: AbstractModel, withProgress progress: NSNumber) {
+    open func modelLoading(_ model: AbstractModel, withProgress progress: NSNumber) {
         
     }
     
-    public func modelFailLoading(model: AbstractModel, withError error: NSError) {
+    open func modelFailLoading(_ model: AbstractModel, withError error: NSString) {
         
     }
     
@@ -83,10 +83,10 @@ public class AbstractTableViewCell : UITableViewCell, AbstractCellProtocol, Obse
 
 
 // MARK: - ====== Abstract CollectionView Cell Class ======
-public class AbstractCollectionViewCell : UICollectionViewCell, AbstractCellProtocol, ObserverModelProtocol{
+open class AbstractCollectionViewCell : UICollectionViewCell, AbstractCellProtocol, ObserverModelProtocol{
     
-    public weak var delegat: NSObject?
-    public weak var viewModel: AbstractViewModel?{
+    open weak var delegat: NSObject?
+    open weak var viewModel: AbstractViewModel?{
         didSet {
             oldValue?.unregisterObserver(self)
             viewModel?.registerObserver(self)
@@ -94,41 +94,41 @@ public class AbstractCollectionViewCell : UICollectionViewCell, AbstractCellProt
     }
     
     
-    public func fillWithViewModel(viewModel: AbstractViewModel) {
+    open func fillWithViewModel(_ viewModel: AbstractViewModel) {
         
     }
     
     // MARK: Observer Model Methods
     
-    public func modelWillLoad(model: AbstractModel) {
+    open func modelWillLoad(_ model: AbstractModel) {
         
     }
     
-    public func modelDidLoad(model: AbstractModel) {
+    open func modelDidLoad(_ model: AbstractModel) {
         
     }
     
-    public func modelWillReload(model: AbstractModel) {
+    open func modelWillReload(_ model: AbstractModel) {
         
     }
     
-    public func modelDidReload(model: AbstractModel) {
+    open func modelDidReload(_ model: AbstractModel) {
         
     }
     
-    public func modelDidUnload(model: AbstractModel) {
+    open func modelDidUnload(_ model: AbstractModel) {
         
     }
     
-    public func modelDidCancel(model: AbstractModel) {
+    open func modelDidCancel(_ model: AbstractModel) {
         
     }
     
-    public func modelLoading(model: AbstractModel, withProgress progress: NSNumber) {
+    open func modelLoading(_ model: AbstractModel, withProgress progress: NSNumber) {
         
     }
     
-    public func modelFailLoading(model: AbstractModel, withError error: NSError) {
+    open func modelFailLoading(_ model: AbstractModel, withError error: NSString) {
         
     }
     

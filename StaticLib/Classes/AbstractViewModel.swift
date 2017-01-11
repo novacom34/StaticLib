@@ -9,7 +9,18 @@
 import Foundation
 
 
-public class AbstractViewModel : AbstractModel {
+open class AbstractViewModel : AbstractModel {
     
+    open var viewIdentifire : String  {
+        get {
+            return "identifire"
+        }
+    }
+    
+    open var viewClassName : String  {
+        get {
+            return "className"
+        }
+    }
     
 }

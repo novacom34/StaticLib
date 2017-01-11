@@ -8,7 +8,7 @@
 
 //import Foundation
 
-public class WeakLink : NSObject {
+open class WeakLink : NSObject {
     
     weak var target : NSObject?
     
@@ -16,24 +16,20 @@ public class WeakLink : NSObject {
         self.target = target
     }
     
-    func isEqualToWeakLink(weakLink: WeakLink) -> Bool {
+    func isEqualToWeakLink(_ weakLink: WeakLink) -> Bool {
         return true
     }
     
-    override public var hash: Int {
+    override open var hash: Int {
         let hashValue = self.target as? Int
         return hashValue ?? 0
     }
     
-    override public func isEqual(object: AnyObject?) -> Bool {
+    override open func isEqual(_ object: Any?) -> Bool {
         if let obj = object as? WeakLink {
             return self.isEqualToWeakLink(obj)
         }
         return false
-    }
-    
-    deinit {
-        print("Deinit: \(self)")
     }
     
 }

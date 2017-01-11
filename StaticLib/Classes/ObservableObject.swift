@@ -11,86 +11,78 @@ import Foundation
 //MARK: - ObservableModelProtocol Protocol
 public protocol ObservableProtocol {
     
-    func registerObserver(observer: NSObject)
-    func unregisterObserver(observer: NSObject)
-    func notifyObserversWithSelector(selector: Selector, andObject object: AnyObject?)
-    func notifyObserversInMainThreadWithSelector(selector: Selector, andObject object: AnyObject?)
-    
+    func registerObserver(_ observer: NSObject)
+    func unregisterObserver(_ observer: NSObject)
+    func notifyObserversWithSelector(_ selector: Selector, andObject object: AnyObject?)
+    func notifyObserversInMainThreadWithSelector(_ selector: Selector, andObject object: AnyObject?)
 }
 
 
-//MARK: - ObservableObject Protocol
-/// ObservableObject it's base class of all Observable Models in app.
-public class ObservableObject : NSObject, ObservableProtocol {
-    
-    private(set) public var observerSet : NSMutableSet = NSMutableSet()
-    
-    public func registerObserver(observer: NSObject) {
-        
-        objc_sync_enter(self.observerSet)
+//MARK: - ObservableObject
 
-        let weakLink = WeakLink(target: observer)
-        self.observerSet.addObject(weakLink)
-        
-        objc_sync_exit(self.observerSet)
+//
+//
+// ObservableObject it's base class of all Observable Models in app.
+//
+//
 
+open class ObservableObject : NSObject, ObservableProtocol {
+    
+    private(set) open var observerSet : NSMutableSet = NSMutableSet()
+    
+    lazy private(set) var safeQueue: DispatchQueue = {
+        let queue = DispatchQueue(label: "com.model.safeAccessThread", attributes: [])
+        return queue
+    }()
+    
+    open func registerObserver(_ observer: NSObject) {
+        
+        self.safeQueue.sync(flags: .barrier, execute: { [unowned self] in
+            let weakLink = WeakLink(target: observer)
+            self.observerSet.add(weakLink)
+        })
     }
     
-    public func unregisterObserver(observer: NSObject) {
+    open func unregisterObserver(_ observer: NSObject) {
         
-        objc_sync_enter(self.observerSet)
-        
-        let weakLink = WeakLink(target: observer)
-        self.observerSet.removeObject(weakLink)
-        
-        objc_sync_exit(self.observerSet)
-
+        self.safeQueue.sync(flags: .barrier, execute: { [unowned self] in
+            let weakLink = WeakLink(target: observer)
+            self.observerSet.remove(weakLink)
+        })
     }
-   
-    public func notifyObserversWithSelector(selector: Selector, andObject object: AnyObject?) {
+    
+//MARK: - Notify Observers functions
+    open func notifyObserversWithSelector(_ selector: Selector, andObject object: AnyObject?) {
         
-        //objc_sync_enter(self.observerSet)
+        let observersSetCopy = self.observerSet.copy() as! NSSet
         
-        for obj in self.observerSet {
+        for obj in observersSetCopy {
             let weakLink = obj as! WeakLink
-            if let isResponse = weakLink.target?.respondsToSelector(selector) {
+            if let isResponse = weakLink.target?.responds(to: selector) {
                 if isResponse {
                     let observer = weakLink.target
-                    observer?.performSelector(selector,
-                                              withObject: self,
-                                              withObject: object)
+                    observer?.perform(selector,
+                                      with: self,
+                                      with: object)
                 }
             }
         }
-    
-        //objc_sync_exit(self.observerSet)
-        
     }
 
     
-    public func notifyObserversInMainThreadWithSelector(selector: Selector, andObject object: AnyObject?) {
-        
-        /* // IF this function call in Main Thread - Main Thread is dealloc
-        dispatch_sync(dispatch_get_main_queue(), {[unowned self] in
-            self.notifyObserversWithSelector(selector, andObject: object)
-        })
-        */
-        
-        if NSThread.isMainThread() {
+    open func notifyObserversInMainThreadWithSelector(_ selector: Selector, andObject object: AnyObject?) {
+    
+        if Thread.isMainThread {
             self.notifyObserversWithSelector(selector, andObject: object)
         } else {
-            dispatch_sync(dispatch_get_main_queue(), {[unowned self] in
+            DispatchQueue.main.sync(execute: {[unowned self] in
                 self.notifyObserversWithSelector(selector, andObject: object)
             })
         }
- 
     }
 
+//MARK: -
     
-// Only test method
-    deinit {
-        //print("### Dealloc: "+"\(self)")
-    }
     
 }
 

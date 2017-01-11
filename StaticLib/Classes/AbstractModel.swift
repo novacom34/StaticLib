@@ -11,127 +11,124 @@ import Foundation
 //MARK: - ModelObserver Protocol
 @objc public protocol ObserverModelProtocol : class {
     
-    optional func modelWillLoad(model: AbstractModel)
-    optional func modelDidLoad(model: AbstractModel)
-    optional func modelWillReload(model: AbstractModel)
-    optional func modelDidReload(model: AbstractModel)
-    optional func modelDidUnload(model: AbstractModel)
-    optional func modelDidCancel(model: AbstractModel)
-    optional func modelLoading(model: AbstractModel, withProgress progress: NSNumber)
-    optional func modelFailLoading(model: AbstractModel, withError error: NSError)
-    
+    @objc optional func modelWillLoad(_ model: AbstractModel)
+    @objc optional func modelDidLoad(_ model: AbstractModel)
+    @objc optional func modelWillReload(_ model: AbstractModel)
+    @objc optional func modelDidReload(_ model: AbstractModel)
+    @objc optional func modelDidUnload(_ model: AbstractModel)
+    @objc optional func modelDidCancel(_ model: AbstractModel)
+    @objc optional func modelLoading(_ model: AbstractModel, withProgress progress: NSNumber)
+    @objc optional func modelFailLoading(_ model: AbstractModel, withError error: NSString)
 }
 
 @objc public protocol ObservableModelProtocol : class{
     
     //===========================================================
     // ============ Method for change model state ===============
-    
-    func unload()                              //  State.Unload
-    func loading()                             //  State.Loading
-    func reloading()                           //  State.Reloading
-    func reload()                              //  State.Reload
-    func loadingWithProgress(progress: NSNumber)
-    func load()                                //  State.Loaded
-    func canceled()                            //  State.Canceled
-    func failLoading(withError: NSError)       //  State.Failed
-    //===========================================================
+    func unload()                                   //  State.Unload
+    func loading()                                  //  State.Loading
+    func reloading()                                //  State.Reloading
+    func reload()                                   //  State.Reload
+    func loadingWithProgress(_ progress: NSNumber)  //  State.
+    func load()                                     //  State.Loaded
+    func canceled()                                 //  State.Canceled
+    func failLoading(_ withError: NSString)         //  State.Failed
     //===========================================================
     
     
-    //===========================================================
     // ================ Base Model Methods ======================
-    
-    optional func performLoading()
-    optional func performUnloading()
-    optional func performCanceled()
-    
+    @objc optional func performLoading()
+    @objc optional func performLoadMore()
+    @objc optional func performUnloading()
+    @objc optional func performCanceled()
     //===========================================================
-    //===========================================================
-    
 }
+
 
 public enum State {
-    case Unloaded
-    case Loading
-    case Loaded
-    case Reload
-    case Reloading
-    case Failed
-    case Canceled
+    case unloaded
+    case loading
+    case loaded
+    case reload
+    case reloading
+    case failed
+    case canceled
 }
 
 
-public class AbstractModel : ObservableObject, ObservableModelProtocol {
+open class AbstractModel : ObservableObject, ObservableModelProtocol {
 
-    private(set) var state: State = State.Unloaded
+    private(set) var state: State = State.unloaded
 
-    public func unload() {
+    open func unload() {
         
-        self.state = .Unloaded
-        self.notifyObserversInMainThreadWithSelector(Selector("modelDidUnload:"), andObject: nil)
+        self.state = .unloaded
+        self.notifyObserversInMainThreadWithSelector(#selector(ObserverModelProtocol.modelDidUnload(_:)), andObject: nil)
         
     }//  State.Unload
     
-    public func loading() {
+    open func loading() {
         
-        self.state = .Loading
-        self.notifyObserversInMainThreadWithSelector(Selector("modelWillLoad:"), andObject: nil)
+        self.state = .loading
+        self.notifyObserversInMainThreadWithSelector(#selector(ObserverModelProtocol.modelWillLoad(_:)), andObject: nil)
         
     }//  State.Loading
     
-    public func loadingWithProgress(progress: NSNumber) {
-        self.notifyObserversInMainThreadWithSelector(Selector("modelLoading:withProgress:"), andObject: progress)
+    open func loadingWithProgress(_ progress: NSNumber) {
+        self.notifyObserversInMainThreadWithSelector(#selector(ObserverModelProtocol.modelLoading(_:withProgress:)), andObject: progress)
         
     } // State.Loading
     
-    public func load() {
+    open func load() {
         
-        self.state = .Loaded
-        self.notifyObserversInMainThreadWithSelector(Selector("modelDidLoad:"), andObject: nil)
+        self.state = .loaded
+        self.notifyObserversInMainThreadWithSelector(#selector(ObserverModelProtocol.modelDidLoad(_:)), andObject: nil)
         
     }//  State.Loaded
     
-    public func reloading() {
+    open func reloading() {
         
-        self.state = .Reloading
-        self.notifyObserversInMainThreadWithSelector(Selector("modelWillReload:"), andObject: nil)
+        self.state = .reloading
+        self.notifyObserversInMainThreadWithSelector(#selector(ObserverModelProtocol.modelWillReload(_:)), andObject: nil)
         
     }//  State.Reloading
     
-    public func reload() {
+    open func reload() {
     
-        self.state = .Reload
-        self.notifyObserversInMainThreadWithSelector(Selector("modelDidReload:"), andObject: nil)
+        self.state = .reload
+        self.notifyObserversInMainThreadWithSelector(#selector(ObserverModelProtocol.modelDidReload(_:)), andObject: nil)
         
     }//  State.Reload
     
-    public func canceled() {
+    open func canceled() {
         
-        self.state = .Canceled
-        self.notifyObserversInMainThreadWithSelector(Selector("modelDidCancel:"), andObject: nil)
+        self.state = .canceled
+        self.notifyObserversInMainThreadWithSelector(#selector(ObserverModelProtocol.modelDidCancel(_:)), andObject: nil)
         
     }//  State.Canceled
     
-    public func failLoading(withError: NSError) {
+    open func failLoading(_ withError: NSString) {
         
-        self.state = .Failed
-        self.notifyObserversInMainThreadWithSelector(Selector(
-            "modelFailLoading:withError:"),
+        self.state = .failed
+        self.notifyObserversInMainThreadWithSelector(#selector(ObserverModelProtocol.modelFailLoading(_:withError:)),
             andObject: nil)
         
     }//  State.Failed
     
     
-    public func performLoading() {
+    open func performLoading() {
         
     }
     
-    public func performUnloading() {
+    open func performLoadMore() {
         
     }
     
-    public func performCanceled() {
+    open func performUnloading() {
+        
+    }
+    
+    open func performCanceled() {
         
     }
     

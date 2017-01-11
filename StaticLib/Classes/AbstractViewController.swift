@@ -8,97 +8,217 @@
 
 import Foundation
 
-public class AbstractViewController : UIViewController, ObserverModelProtocol, ObserverArrayModelProtocol {
+
+
+// ===================================================================
+// MARK: - AbstractViewController
+// ===================================================================
+open class AbstractViewController : UIViewController, ObserverModelProtocol, ObserverArrayModelProtocol {
     
-    public var modelArray : AbstractArrayModel? {
+    @IBOutlet var activityIndicator : UIActivityIndicatorView?
+    @IBOutlet var noDataLabel : UILabel?
+    @IBOutlet var noDataImage : UIImageView?
+    
+    open var modelArray : AbstractArrayModel? {
         didSet {
             oldValue?.unregisterObserver(self)
             modelArray?.registerObserver(self)
         }
     }
     
-    public var model : AbstractModel? {
+    open var model : AbstractModel? {
         didSet {
             oldValue?.unregisterObserver(self)
             model?.registerObserver(self)
         }
     }
     
-    
     // MARK: - Life cycle
-    override public func viewDidLoad() {
+    override open func viewDidLoad() {
+        super.viewDidLoad()
         
-  
+        
     }
     
     // MARK: - Observer Model Methods
     
-    public func modelWillLoad(model: AbstractModel) {
+    open func modelWillLoad(_ model: AbstractModel) {
         
     }
     
-    public func modelDidLoad(model: AbstractModel) {
+    open func modelDidLoad(_ model: AbstractModel) {
         
     }
     
-    public func modelWillReload(model: AbstractModel) {
+    open func modelWillReload(_ model: AbstractModel) {
         
     }
     
-    public func modelDidReload(model: AbstractModel) {
+    open func modelDidReload(_ model: AbstractModel) {
         
     }
     
-    public func modelDidUnload(model: AbstractModel) {
+    open func modelDidUnload(_ model: AbstractModel) {
         
     }
     
-    public func modelDidCancel(model: AbstractModel) {
+    open func modelDidCancel(_ model: AbstractModel) {
         
     }
     
-    public func modelLoading(model: AbstractModel, withProgress progress: NSNumber) {
+    open func modelLoading(_ model: AbstractModel, withProgress progress: NSNumber) {
         
     }
     
-    public func modelFailLoading(model: AbstractModel, withError error: NSError) {
+    open func modelFailLoading(_ model: AbstractModel, withError error: NSString) {
         
     }
+    
     
     // MARK: - Observer Array Model Methods
     
-    public func arrayModelDidChange(arrayModel: AbstractArrayModel) {
+    open func arrayModelDidChange(_ arrayModel: AbstractArrayModel) {
         
     }
     
-    public func arrayModel(arrayModel: AbstractArrayModel,
-                    didAddElementsAtIndexs indexs: [Int]) {
+    open func arrayModel(_ arrayModel: AbstractArrayModel, didAddElementsAtIndexs indexs: NSArray)
+    {
         
     }
     
-    public func arrayModel(arrayModel: AbstractArrayModel,
-                    didRemoveElementsAtIndexs indexs: [Int]) {
+    open func arrayModel(_ arrayModel: AbstractArrayModel, didRemoveElementsAtIndexs indexs: NSArray)
+    {
         
     }
     
-    public func arrayModel(arrayModel: AbstractArrayModel,
-                    didReplaceElementsAtIndexs indexs: [Int]) {
+    open func arrayModel(_ arrayModel: AbstractArrayModel, didReplaceElementAtIndex index: NSIndexPath)
+    {
         
     }
     
-    public func arrayModel(arrayModel: AbstractArrayModel,
-                    didMoveElementAtIndexs indexs: [Int]) {
+    open func arrayModel(_ arrayModel: AbstractArrayModel, didMoveElementAtIndexs indexs: NSArray)
+    {
         
     }
-    
 }
 
 
 
 
 
-//@property (strong, nonatomic) SCArrayModelParent *modelArray;
-//@property (strong, nonatomic) SCModelParent      *model;
 
 
+
+
+// =====================================================================================
+// MARK: - AbstractTableViewController
+// =====================================================================================
+open class AbstractTableViewController : AbstractViewController, UITableViewDelegate, UITableViewDataSource {
+    
+    // MARK: - Property Declaration
+    @IBOutlet open var tableView: UITableView!
+    
+    
+    
+    
+    // MARK: - UITableViewDataSource
+    
+    open func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
+        if let count = self.modelArray?.count {
+            self.noDataImage?.isHidden = true
+            self.noDataLabel?.isHidden = true
+            
+            return count
+        } else {
+            self.noDataImage?.isHidden = false
+            self.noDataLabel?.isHidden = false
+            
+            return 0
+        }
+    }
+    
+    open func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        /*
+        let viewModel: AbstractViewModel = self.modelArray?.array.object(at: indexPath.row) as! AbstractViewModel
+        
+        var cell: UITableViewCell? = tableView.dequeueReusableCell(withIdentifier: viewModel.viewIdentifire)
+        
+        if cell == nil {
+            
+            let viewClass = AnyClass.class(forClassName: viewModel.viewClassName)!
+            
+            cell = tableView.register(viewClass, forCellReuseIdentifier: viewModel.viewIdentifire)
+            
+            
+        }
+ 
+        return cell!
+ */
+        
+        return UITableViewCell()
+    }
+    
+    // MARK: - UITableViewDelegate
+    open func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+    }
+    
+    // MARK: - Observer Array Model Methods
+    
+    override open func arrayModelDidChange(_ arrayModel: AbstractArrayModel)
+    {
+        self.tableView.reloadData()
+    }
+    
+    override open func arrayModel(_ arrayModel: AbstractArrayModel, didAddElementsAtIndexs indexs: NSArray)
+    {
+        let indexPathsArray = indexs.objectEnumerator().allObjects as! [IndexPath]
+        self.tableView.beginUpdates()
+        self.tableView.insertRows(at: indexPathsArray, with: UITableViewRowAnimation.right)
+        self.tableView.endUpdates()
+    }
+    
+    override open func arrayModel(_ arrayModel: AbstractArrayModel, didRemoveElementsAtIndexs indexs: NSArray)
+    {
+        let indexPathsArray = indexs.objectEnumerator().allObjects as! [IndexPath]
+        self.tableView.beginUpdates()
+        self.tableView.deleteRows(at: indexPathsArray, with: UITableViewRowAnimation.right)
+        self.tableView.endUpdates()
+    }
+    
+    override open func arrayModel(_ arrayModel: AbstractArrayModel, didReplaceElementAtIndex index: NSIndexPath)
+    {
+        let indexPath = IndexPath(row: index.row, section: index.section)
+        self.tableView.beginUpdates()
+        self.tableView.reloadRows(at: [indexPath], with: .none)
+        self.tableView.endUpdates()
+    }
+    
+    override open func arrayModel(_ arrayModel: AbstractArrayModel, didMoveElementAtIndexs indexs: NSArray)
+    {
+        
+        let firstIndex : NSIndexPath  =  indexs[0] as! NSIndexPath
+        let secondIndex : NSIndexPath =  indexs[1] as! NSIndexPath
+        
+        let atIndexPath = IndexPath(row: firstIndex.row, section: firstIndex.section)
+        let toIndexPath = IndexPath(row: secondIndex.row, section: secondIndex.section)
+        
+        self.tableView.beginUpdates()
+        self.tableView.moveRow(at: atIndexPath, to: toIndexPath)
+        self.tableView.endUpdates()
+    }
+}
+
+
+// ==========================================================================================
+// MARK: - AbstractCollectionViewController
+// ==========================================================================================
+
+open class AbstractCollectionViewController : AbstractViewController {
+    
+    
+    
+}
 

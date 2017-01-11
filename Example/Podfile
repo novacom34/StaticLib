@@ -1,9 +1,9 @@
 platform :ios, '8.0'
-use_frameworks!
+
 
 target 'StaticLib_Example' do
-    pod 'StaticLib',:path => "/Users/romanovakov/Desktop/Libraries/StaticLib"
-    pod 'Alamofire'
+    use_frameworks!
+    pod 'StaticLib', :path => '../'
     
 end
  
