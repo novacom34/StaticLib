@@ -23,21 +23,21 @@ import Foundation
 public protocol AbstractArrayModelProtocol {
     
     // Add
-    func addModel(_ model: ObservableObject)
-    func addModels(_ models: [ObservableObject])
-    func insertModels(_ models: [ObservableObject])
-    func insertModel(_ model: ObservableObject, atIndex index: Int)
+    func addModel(_ model: AnyObject)
+    func addModels(_ models: [AnyObject])
+    func insertModels(_ models: [AnyObject])
+    func insertModel(_ model: AnyObject, atIndex index: Int)
     
     // Remove
     func removeAllModels()
-    func removeModel(_ model: ObservableObject)
+    func removeModel(_ model: AnyObject)
     func removeModelAtIndex(_ index: Int)
     
     // Move
     func moveModelAtIndex(_ index: Int, toIndex newIndex: Int)
     
     // Replace
-    func replaceModel(_ model: ObservableObject, atIndex index: Int)
+    func replaceModel(_ model: AnyObject, atIndex index: Int)
 }
 
 
@@ -59,7 +59,7 @@ open class AbstractArrayModel : AbstractModel, AbstractArrayModelProtocol {
     // Private
     private var mutableArray : NSMutableArray = NSMutableArray()
     
-    open func addModel(_ model: ObservableObject) {
+    open func addModel(_ model: AnyObject) {
         self.safeQueue.sync(flags: .barrier, execute: { [unowned self] in
             self.mutableArray.add(model)
             let indexPath = NSIndexPath(index: self.mutableArray.count-1)
@@ -73,7 +73,7 @@ open class AbstractArrayModel : AbstractModel, AbstractArrayModelProtocol {
     // MARK: - Add
     // ===================================================================
     
-    open func addModels(_ models: [ObservableObject]) {
+    open func addModels(_ models: [AnyObject]) {
         
         self.safeQueue.sync(flags: .barrier, execute: { [unowned self] in
     
@@ -94,7 +94,7 @@ open class AbstractArrayModel : AbstractModel, AbstractArrayModelProtocol {
         })
     }
     
-    open func insertModel(_ model: ObservableObject, atIndex index: Int) {
+    open func insertModel(_ model: AnyObject, atIndex index: Int) {
         
         safeQueue.sync(flags: .barrier, execute: { [unowned self] in
             
@@ -105,7 +105,7 @@ open class AbstractArrayModel : AbstractModel, AbstractArrayModelProtocol {
         })
     }
     
-    open func insertModels(_ models: [ObservableObject]) {
+    open func insertModels(_ models: [AnyObject]) {
         
         safeQueue.sync(flags: .barrier, execute: { [unowned self] in
             
@@ -141,7 +141,7 @@ open class AbstractArrayModel : AbstractModel, AbstractArrayModelProtocol {
         })
     }
     
-    open func removeModel(_ model: ObservableObject) {
+    open func removeModel(_ model: AnyObject) {
         
         safeQueue.sync(flags: .barrier, execute: { [unowned self] in
             
@@ -197,7 +197,7 @@ open class AbstractArrayModel : AbstractModel, AbstractArrayModelProtocol {
     // MARK: - Replace
     // ======================================================================
     
-    open func replaceModel(_ model: ObservableObject, atIndex index: Int) {
+    open func replaceModel(_ model: AnyObject, atIndex index: Int) {
         
         safeQueue.sync(flags: .barrier, execute: { [unowned self] in
         

@@ -79,14 +79,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ObserverModelProtocol, Ob
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
 
         
-        self.abstractModel.registerObserver(self)
+        //self.arrayModel.registerObserver(self)
         
         self.accessQueue.async {
-            self.abstractModel.loading()
+            //self.abstractModel.loading()
         }
         
         
-        /*
+        
         self.arrayModel.registerObserver(self)
         //self.observebl.registerObserver(self)
         
@@ -110,7 +110,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ObserverModelProtocol, Ob
             //self.arrayModel.addModels([obs3])
             
         }
-        */
+        
         
 //        for i in 0...20 {
 //            
