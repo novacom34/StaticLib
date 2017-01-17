@@ -7,18 +7,24 @@
 //
 
 import UIKit
+import StaticLib
 
-class ViewController: UIViewController {
+class ViewController: AbstractTableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        
+        self.modelArray = AbstractArrayModel()
+        
+        let vm = AbstractViewModel(viewIdentifire: "cell_cell",
+                                   viewClassName: "TestCell")
+        
+        self.modelArray?.addModel(vm)
+        self.tableView.reloadData()
+        
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
+
 
 }
 

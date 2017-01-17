@@ -13,6 +13,7 @@
 		607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDC1AFB9204008FA782 /* Images.xcassets */; };
 		607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDE1AFB9204008FA782 /* LaunchScreen.xib */; };
 		B15E8377B96E490E81CF1555 /* Pods_StaticLib_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1596FA5F728F55AB6527863F /* Pods_StaticLib_Example.framework */; };
+		F677B2971E2E51B8004B85BB /* TestCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F677B2961E2E51B8004B85BB /* TestCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +32,7 @@
 		9239404C962C20794D3E56FA /* Pods-StaticLib_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StaticLib_Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-StaticLib_Example/Pods-StaticLib_Example.release.xcconfig"; sourceTree = "<group>"; };
 		92C932B79CA0AEFFA3F4A035 /* StaticLib.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = StaticLib.podspec; path = ../StaticLib.podspec; sourceTree = "<group>"; };
 		E2B0775AA8FA3EA60F63A0C1 /* Pods-StaticLib_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StaticLib_Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-StaticLib_Example/Pods-StaticLib_Example.debug.xcconfig"; sourceTree = "<group>"; };
+		F677B2961E2E51B8004B85BB /* TestCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,6 +76,7 @@
 				607FACDC1AFB9204008FA782 /* Images.xcassets */,
 				607FACDE1AFB9204008FA782 /* LaunchScreen.xib */,
 				607FACD31AFB9204008FA782 /* Supporting Files */,
+				F677B2961E2E51B8004B85BB /* TestCell.swift */,
 			);
 			name = "Example for StaticLib";
 			path = StaticLib;
@@ -255,6 +258,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				607FACD81AFB9204008FA782 /* ViewController.swift in Sources */,
+				F677B2971E2E51B8004B85BB /* TestCell.swift in Sources */,
 				607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

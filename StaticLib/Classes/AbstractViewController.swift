@@ -140,24 +140,19 @@ open class AbstractTableViewController : AbstractViewController, UITableViewDele
     
     open func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        /*
         let viewModel: AbstractViewModel = self.modelArray?.array.object(at: indexPath.row) as! AbstractViewModel
         
-        var cell: UITableViewCell? = tableView.dequeueReusableCell(withIdentifier: viewModel.viewIdentifire)
+        var cell: AbstractTableViewCell? = tableView.dequeueReusableCell(withIdentifier: viewModel.viewIdentifire) as! AbstractTableViewCell?
         
         if cell == nil {
-            
-            let viewClass = AnyClass.class(forClassName: viewModel.viewClassName)!
-            
-            cell = tableView.register(viewClass, forCellReuseIdentifier: viewModel.viewIdentifire)
-            
-            
+            let aClass: AnyClass? = NSClassFromString(viewModel.viewClassName)
+            tableView.register(aClass, forCellReuseIdentifier: viewModel.viewIdentifire)
+            cell = tableView.dequeueReusableCell(withIdentifier: viewModel.viewIdentifire) as! AbstractTableViewCell?
         }
- 
-        return cell!
- */
         
-        return UITableViewCell()
+        cell!.viewModel = viewModel
+        
+        return cell!
     }
     
     // MARK: - UITableViewDelegate

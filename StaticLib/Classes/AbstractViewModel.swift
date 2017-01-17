@@ -8,19 +8,21 @@
 
 import Foundation
 
-
 open class AbstractViewModel : AbstractModel {
     
-    open var viewIdentifire : String  {
-        get {
-            return "identifire"
-        }
+    override init() {
+        super.init()
     }
     
-    open var viewClassName : String  {
-        get {
-            return "className"
-        }
+    public convenience init(viewIdentifire: String, viewClassName: String) {
+        self.init()
+        
+        self.viewIdentifire = viewIdentifire
+        let namespace = Bundle.main.infoDictionary!["CFBundleExecutable"] as! String;
+        self.viewClassName = "\(namespace).\(viewClassName)"
     }
+    
+    open var viewIdentifire : String!
+    open var viewClassName : String!
     
 }
