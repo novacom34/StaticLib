@@ -62,7 +62,7 @@ open class AbstractArrayModel : AbstractModel, AbstractArrayModelProtocol {
     open func addModel(_ model: AnyObject) {
         self.safeQueue.sync(flags: .barrier, execute: { [unowned self] in
             self.mutableArray.add(model)
-            let indexPath = NSIndexPath(index: self.mutableArray.count-1)
+            let indexPath = NSIndexPath(row: self.mutableArray.count-1, section: 0)
             let selector = #selector(ObserverArrayModelProtocol.arrayModel(_:didAddElementsAtIndexs:))
             self.notifyObserversInMainThreadWithSelector(selector, andObject: NSArray(object: indexPath))
         })
@@ -84,7 +84,7 @@ open class AbstractArrayModel : AbstractModel, AbstractArrayModelProtocol {
             var mutableIndexPaths : [AnyObject] = []
             
             for index in beforeCount...afterCount-1 {
-                 let indexPath = NSIndexPath(index: index)
+                 let indexPath = NSIndexPath(row: index, section: 0)
                 mutableIndexPaths.append(indexPath)
             }
 
@@ -99,7 +99,7 @@ open class AbstractArrayModel : AbstractModel, AbstractArrayModelProtocol {
         safeQueue.sync(flags: .barrier, execute: { [unowned self] in
             
             self.mutableArray.insert(model, at: index)
-            let indexPath = NSIndexPath(index: index)
+            let indexPath = NSIndexPath(row: index, section: 0)
             let selector = #selector(ObserverArrayModelProtocol.arrayModel(_:didAddElementsAtIndexs:))
             self.notifyObserversInMainThreadWithSelector(selector, andObject: NSArray(object: indexPath))
         })
@@ -116,7 +116,7 @@ open class AbstractArrayModel : AbstractModel, AbstractArrayModelProtocol {
             var mutableIndexPaths : [AnyObject] = []
             
             for index in 0 ..< self.mutableArray.count {
-                let indexPath = NSIndexPath(index: index)
+                let indexPath = NSIndexPath(row: index, section: 0)
                 mutableIndexPaths.append(indexPath)
             }
 
@@ -147,7 +147,7 @@ open class AbstractArrayModel : AbstractModel, AbstractArrayModelProtocol {
             
             let modelIndex = self.mutableArray.index(of: model)
             self.mutableArray.remove(model)
-            let indexPath = NSIndexPath(index: modelIndex)
+            let indexPath = NSIndexPath(row: modelIndex, section: 0)
             
             let selector = #selector(ObserverArrayModelProtocol.arrayModel(_:didRemoveElementsAtIndexs:))
             self.notifyObserversInMainThreadWithSelector(selector, andObject: NSArray(object: indexPath))
@@ -161,7 +161,7 @@ open class AbstractArrayModel : AbstractModel, AbstractArrayModelProtocol {
             if index<self.mutableArray.count
             {
                 self.mutableArray.removeObject(at: index)
-                let indexPath = NSIndexPath(index: index)
+                let indexPath = NSIndexPath(row: index, section: 0)
                 let selector = #selector(ObserverArrayModelProtocol.arrayModel(_:didRemoveElementsAtIndexs:))
                 self.notifyObserversInMainThreadWithSelector(selector, andObject: NSArray(object: indexPath))
             }
@@ -183,8 +183,8 @@ open class AbstractArrayModel : AbstractModel, AbstractArrayModelProtocol {
                 self.mutableArray.removeObject(at: index)
                 self.mutableArray.insert(model, at: newIndex)
                 
-                let oldIndexPath = NSIndexPath(index: index)
-                let newIndexPath = NSIndexPath(index: newIndex)
+                let oldIndexPath = NSIndexPath(row: index, section: 0)
+                let newIndexPath = NSIndexPath(row: newIndex, section: 0)
                 
                 let selector = #selector(ObserverArrayModelProtocol.arrayModel(_:didMoveElementAtIndexs:))
                 self.notifyObserversInMainThreadWithSelector(selector, andObject: NSArray(array: [oldIndexPath, newIndexPath]))
