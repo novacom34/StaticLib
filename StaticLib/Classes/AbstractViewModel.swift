@@ -8,18 +8,30 @@
 
 import Foundation
 
+/*
+ Required childe init method
+override init() {
+    super.init()
+    
+    self.viewIdentifire = "cell_test"
+    self.viewClassName = "TestCell"
+}
+*/
+
 open class AbstractViewModel : AbstractModel {
     
-    public init(viewIdentifire: String, viewClassName: String) {
-        super.init()
+    open var viewIdentifire : String!
+    open var viewClassName : String! {
+        set {
+            self.className = newValue
+        }
         
-        self.viewIdentifire = viewIdentifire
-        let namespace = Bundle.main.infoDictionary!["CFBundleExecutable"] as! String;
-        self.viewClassName = "\(namespace).\(viewClassName)"
-        
+        get {
+            let namespace = Bundle.main.infoDictionary!["CFBundleExecutable"] as! String;
+            return "\(namespace).\(className!)"
+        }
     }
     
-    open var viewIdentifire : String!
-    open var viewClassName : String!
+    private var className: String!
     
 }

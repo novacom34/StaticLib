@@ -24,3 +24,15 @@ class TestCell: AbstractTableViewCell {
         
     }
 }
+
+
+class TestViewModel: AbstractViewModel {
+    
+    override init() {
+        super.init()
+        
+        self.viewIdentifire = "cell_test"
+        self.viewClassName = "TestCell"
+    }
+    
+}

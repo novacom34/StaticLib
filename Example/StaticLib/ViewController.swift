@@ -16,15 +16,11 @@ class ViewController: AbstractTableViewController {
         
         self.modelArray = AbstractArrayModel()
         
-        let vm = AbstractViewModel(viewIdentifire: "cell_cell",
-                                   viewClassName: "TestCell")
+        let vm = TestViewModel()
         
         self.modelArray?.addModel(vm)
         self.tableView.reloadData()
         
     }
-
-
-
 }
 
