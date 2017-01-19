@@ -49,21 +49,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ObserverModelProtocol, Ob
     
     // MARK: - Array Model Observer Methods
     
-    func arrayModel(_ arrayModel: AbstractArrayModel, didAddElementsAtIndexs indexs: NSArray) {
-        
-        for value in indexs.enumerated() {
-            print(value)
-        }
+    func arrayModel(_ arrayModel: AbstractArrayModel, didAddElementsAtIndexs indexs: Array<Any>) {
         
         print("Add elements with count: \(arrayModel.array.count)")
     }
     
-    func arrayModel(_ arrayModel: AbstractArrayModel, didMoveElementAtIndexs indexs: NSArray)
+    func arrayModel(_ arrayModel: AbstractArrayModel, didMoveElementAtIndexs indexs: Array<Any>)
     {
         print("Move elements with idxs: \(indexs)")
     }
     
-    func arrayModel(_ arrayModel: AbstractArrayModel, didRemoveElementsAtIndexs indexs: NSArray) {
+    func arrayModel(_ arrayModel: AbstractArrayModel, didRemoveElementsAtIndexs indexs: Array<Any>) {
         print("Remove elements count: \(arrayModel.array.count)")
     }
     
@@ -94,8 +90,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ObserverModelProtocol, Ob
         let obs2 = AbstractModel()
         let obs3 = AbstractModel()
         
-        self.arrayModel.addModels([obs1,obs2,obs3])
-        
+        self.arrayModel.addModel(obs1)
         
         print("===========================")
         print("\(self.arrayModel.array)")

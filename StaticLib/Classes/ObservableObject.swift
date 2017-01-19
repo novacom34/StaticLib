@@ -13,8 +13,8 @@ public protocol ObservableProtocol {
     
     func registerObserver(_ observer: NSObject)
     func unregisterObserver(_ observer: NSObject)
-    func notifyObserversWithSelector(_ selector: Selector, andObject object: AnyObject?)
-    func notifyObserversInMainThreadWithSelector(_ selector: Selector, andObject object: AnyObject?)
+    func notifyObserversWithSelector(_ selector: Selector, andObject object: Any?)
+    func notifyObserversInMainThreadWithSelector(_ selector: Selector, andObject object: Any?)
 }
 
 
@@ -52,7 +52,7 @@ open class ObservableObject : NSObject, ObservableProtocol {
     }
     
 //MARK: - Notify Observers functions
-    open func notifyObserversWithSelector(_ selector: Selector, andObject object: AnyObject?) {
+    open func notifyObserversWithSelector(_ selector: Selector, andObject object: Any?) {
         
         let observersSetCopy = self.observerSet.copy() as! NSSet
         
@@ -70,7 +70,7 @@ open class ObservableObject : NSObject, ObservableProtocol {
     }
 
     
-    open func notifyObserversInMainThreadWithSelector(_ selector: Selector, andObject object: AnyObject?) {
+    open func notifyObserversInMainThreadWithSelector(_ selector: Selector, andObject object: Any?) {
     
         if Thread.isMainThread {
             self.notifyObserversWithSelector(selector, andObject: object)
