@@ -60,12 +60,12 @@ open class AbstractArrayModel : AbstractModel, AbstractArrayModelProtocol {
     private var mutableArray : NSMutableArray = NSMutableArray()
     
     open func addModel(_ model: AnyObject) {
-        self.safeQueue.sync(flags: .barrier, execute: { [unowned self] in
+        self.safeQueue.sync { [unowned self] in
             self.mutableArray.add(model)
             let indexPath = IndexPath(row: self.mutableArray.count-1, section: 0)
             let selector = #selector(ObserverArrayModelProtocol.arrayModel(_:didAddElementsAtIndexs:))
             self.notifyObserversInMainThreadWithSelector(selector, andObject: [indexPath])
-        })
+        }
     }
 
     
