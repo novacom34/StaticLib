@@ -81,22 +81,22 @@ open class AbstractViewController : UIViewController, ObserverModelProtocol, Obs
         
     }
     
-    open func arrayModel(_ arrayModel: AbstractArrayModel, didAddElementsAtIndexs indexs: NSArray)
+    open func arrayModel(_ arrayModel: AbstractArrayModel, didAddElementsAtIndexs indexs: [IndexPath])
     {
         
     }
     
-    open func arrayModel(_ arrayModel: AbstractArrayModel, didRemoveElementsAtIndexs indexs: NSArray)
+    open func arrayModel(_ arrayModel: AbstractArrayModel, didRemoveElementsAtIndexs indexs: [IndexPath])
     {
         
     }
     
-    open func arrayModel(_ arrayModel: AbstractArrayModel, didReplaceElementAtIndex index: NSIndexPath)
+    open func arrayModel(_ arrayModel: AbstractArrayModel, didReplaceElementAtIndex index: IndexPath)
     {
         
     }
     
-    open func arrayModel(_ arrayModel: AbstractArrayModel, didMoveElementAtIndexs indexs: NSArray)
+    open func arrayModel(_ arrayModel: AbstractArrayModel, didMoveElementAtIndexs indexs: [IndexPath])
     {
         
     }
@@ -166,39 +166,35 @@ open class AbstractTableViewController : AbstractViewController, UITableViewDele
     {
         self.tableView.reloadData()
     }
+
     
-    override open func arrayModel(_ arrayModel: AbstractArrayModel, didAddElementsAtIndexs indexs: NSArray)
-    {
-        let indexPathsArray = indexs.objectEnumerator().allObjects as! [IndexPath]
+    override open func arrayModel(_ arrayModel: AbstractArrayModel, didAddElementsAtIndexs indexs: [IndexPath]) {
+        
         self.tableView.beginUpdates()
-        self.tableView.insertRows(at: indexPathsArray, with: UITableViewRowAnimation.right)
+        self.tableView.insertRows(at: indexs, with:  UITableViewRowAnimation.right)
+        self.tableView.endUpdates()
+        
+    }
+    
+    override open func arrayModel(_ arrayModel: AbstractArrayModel, didRemoveElementsAtIndexs indexs: [IndexPath])
+    {
+        self.tableView.beginUpdates()
+        self.tableView.deleteRows(at: indexs, with: UITableViewRowAnimation.right)
         self.tableView.endUpdates()
     }
     
-    override open func arrayModel(_ arrayModel: AbstractArrayModel, didRemoveElementsAtIndexs indexs: NSArray)
+    override open func arrayModel(_ arrayModel: AbstractArrayModel, didReplaceElementAtIndex index: IndexPath)
     {
-        let indexPathsArray = indexs.objectEnumerator().allObjects as! [IndexPath]
         self.tableView.beginUpdates()
-        self.tableView.deleteRows(at: indexPathsArray, with: UITableViewRowAnimation.right)
+        self.tableView.reloadRows(at: [index], with: .none)
         self.tableView.endUpdates()
     }
     
-    override open func arrayModel(_ arrayModel: AbstractArrayModel, didReplaceElementAtIndex index: NSIndexPath)
-    {
-        let indexPath = IndexPath(row: index.row, section: index.section)
-        self.tableView.beginUpdates()
-        self.tableView.reloadRows(at: [indexPath], with: .none)
-        self.tableView.endUpdates()
-    }
-    
-    override open func arrayModel(_ arrayModel: AbstractArrayModel, didMoveElementAtIndexs indexs: NSArray)
+    override open func arrayModel(_ arrayModel: AbstractArrayModel, didMoveElementAtIndexs indexs: [IndexPath])
     {
         
-        let firstIndex : NSIndexPath  =  indexs[0] as! NSIndexPath
-        let secondIndex : NSIndexPath =  indexs[1] as! NSIndexPath
-        
-        let atIndexPath = IndexPath(row: firstIndex.row, section: firstIndex.section)
-        let toIndexPath = IndexPath(row: secondIndex.row, section: secondIndex.section)
+        let atIndexPath = indexs[0]
+        let toIndexPath = indexs[1]
         
         self.tableView.beginUpdates()
         self.tableView.moveRow(at: atIndexPath, to: toIndexPath)

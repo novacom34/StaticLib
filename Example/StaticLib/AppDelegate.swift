@@ -49,17 +49,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ObserverModelProtocol, Ob
     
     // MARK: - Array Model Observer Methods
     
-    func arrayModel(_ arrayModel: AbstractArrayModel, didAddElementsAtIndexs indexs: Array<Any>) {
+    func arrayModel(_ arrayModel: AbstractArrayModel, didAddElementsAtIndexs indexs: [IndexPath]) {
         
         print("Add elements with count: \(arrayModel.array.count)")
     }
     
-    func arrayModel(_ arrayModel: AbstractArrayModel, didMoveElementAtIndexs indexs: Array<Any>)
+    func arrayModel(_ arrayModel: AbstractArrayModel, didMoveElementAtIndexs indexs: [IndexPath])
     {
         print("Move elements with idxs: \(indexs)")
     }
     
-    func arrayModel(_ arrayModel: AbstractArrayModel, didRemoveElementsAtIndexs indexs: Array<Any>) {
+    func arrayModel(_ arrayModel: AbstractArrayModel, didRemoveElementsAtIndexs indexs: [IndexPath]) {
         print("Remove elements count: \(arrayModel.array.count)")
     }
     

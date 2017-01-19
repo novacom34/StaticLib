@@ -12,10 +12,10 @@ import Foundation
 @objc public protocol ObserverArrayModelProtocol : class {
     
     @objc optional func arrayModelDidChange(_ arrayModel: AbstractArrayModel)
-    @objc optional func arrayModel(_ arrayModel: AbstractArrayModel, didAddElementsAtIndexs indexs: Array<Any>)
-    @objc optional func arrayModel(_ arrayModel: AbstractArrayModel, didRemoveElementsAtIndexs indexs: Array<Any>)
+    @objc optional func arrayModel(_ arrayModel: AbstractArrayModel, didAddElementsAtIndexs indexs: [IndexPath])
+    @objc optional func arrayModel(_ arrayModel: AbstractArrayModel, didRemoveElementsAtIndexs indexs: [IndexPath])
     @objc optional func arrayModel(_ arrayModel: AbstractArrayModel, didReplaceElementAtIndex index: IndexPath)
-    @objc optional func arrayModel(_ arrayModel: AbstractArrayModel, didMoveElementAtIndexs indexs: Array<Any>)
+    @objc optional func arrayModel(_ arrayModel: AbstractArrayModel, didMoveElementAtIndexs indexs: [IndexPath])
 }
 
 
@@ -81,7 +81,7 @@ open class AbstractArrayModel : AbstractModel, AbstractArrayModelProtocol {
             self.mutableArray.addObjects(from: models)
             let afterCount = self.mutableArray.count
             
-            var mutableIndexPaths : [Any] = []
+            var mutableIndexPaths : [IndexPath] = []
             
             for index in beforeCount...afterCount-1 {
                 let indexPath = IndexPath(row: index, section: 0)
@@ -112,7 +112,7 @@ open class AbstractArrayModel : AbstractModel, AbstractArrayModelProtocol {
             self.mutableArray.removeAllObjects()
             self.mutableArray.addObjects(from: models)
             
-            var mutableIndexPaths : [Any] = []
+            var mutableIndexPaths : [IndexPath] = []
             
             for index in 0 ..< self.mutableArray.count {
                 let indexPath = IndexPath(row: index, section: 0)
