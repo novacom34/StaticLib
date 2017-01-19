@@ -40,6 +40,12 @@ open class AbstractTableViewCell : UITableViewCell, AbstractCellProtocol, Observ
         }
     }
     
+    override open func prepareForReuse() {
+        super.prepareForReuse()
+        
+        self.viewModel = nil
+    }
+    
     // MARK: Abstract Cell Protocol Methods
     open func fillWithViewModel(_ viewModel: AbstractViewModel?) {
         
@@ -95,6 +101,10 @@ open class AbstractCollectionViewCell : UICollectionViewCell, AbstractCellProtoc
         }
     }
     
+    override open func prepareForReuse() {
+        super.prepareForReuse()
+        self.viewModel = nil
+    }
     
     open func fillWithViewModel(_ viewModel: AbstractViewModel?) {
         
