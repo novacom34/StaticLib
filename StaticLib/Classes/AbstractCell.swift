@@ -20,7 +20,7 @@ import Foundation
 // MARK: - ====== Abstract Cell Protocol ======
 public protocol AbstractCellProtocol {
     
-    func fillWithViewModel(_ viewModel: AbstractViewModel)
+    func fillWithViewModel(_ viewModel: AbstractViewModel?)
     weak var viewModel: AbstractViewModel? {get set}
     weak var delegat: NSObject? {get set}
     
@@ -36,11 +36,12 @@ open class AbstractTableViewCell : UITableViewCell, AbstractCellProtocol, Observ
         didSet {
             oldValue?.unregisterObserver(self)
             viewModel?.registerObserver(self)
+            self.fillWithViewModel(viewModel)
         }
     }
     
     // MARK: Abstract Cell Protocol Methods
-    open func fillWithViewModel(_ viewModel: AbstractViewModel) {
+    open func fillWithViewModel(_ viewModel: AbstractViewModel?) {
         
     }
     
@@ -86,15 +87,16 @@ open class AbstractTableViewCell : UITableViewCell, AbstractCellProtocol, Observ
 open class AbstractCollectionViewCell : UICollectionViewCell, AbstractCellProtocol, ObserverModelProtocol{
     
     open weak var delegat: NSObject?
-    open weak var viewModel: AbstractViewModel?{
+    open weak var viewModel: AbstractViewModel? {
         didSet {
             oldValue?.unregisterObserver(self)
             viewModel?.registerObserver(self)
+            self.fillWithViewModel(viewModel)
         }
     }
     
     
-    open func fillWithViewModel(_ viewModel: AbstractViewModel) {
+    open func fillWithViewModel(_ viewModel: AbstractViewModel?) {
         
     }
     
