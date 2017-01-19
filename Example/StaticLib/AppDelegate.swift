@@ -90,6 +90,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ObserverModelProtocol, Ob
         let obs2 = AbstractModel()
         let obs3 = AbstractModel()
         
+        print(obs1.state)
+        
         self.arrayModel.registerObserver(obs1)
         self.arrayModel.registerObserver(obs2)
         self.arrayModel.registerObserver(obs2)

@@ -58,7 +58,7 @@ public enum State {
 
 open class AbstractModel : ObservableObject, ObservableModelProtocol {
 
-    private(set) var state: State = State.unloaded
+    open private(set) var state: State = State.unloaded
 
     open func unload() {
         
