@@ -16,10 +16,6 @@ open class WeakLink : NSObject {
         self.target = target
     }
     
-    func isEqualToWeakLink(_ weakLink: WeakLink) -> Bool {
-        return true
-    }
-    
     override open var hash: Int {
         let hashValue = self.target as? Int
         return hashValue ?? 0
@@ -30,6 +26,10 @@ open class WeakLink : NSObject {
             return self.isEqualToWeakLink(obj)
         }
         return false
+    }
+    
+    func isEqualToWeakLink(_ weakLink: WeakLink) -> Bool {
+        return self.target == weakLink.target;
     }
     
 }

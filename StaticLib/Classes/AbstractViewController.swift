@@ -118,18 +118,25 @@ open class AbstractTableViewController : AbstractViewController, UITableViewDele
     // MARK: - Property Declaration
     @IBOutlet open var tableView: UITableView!
     
-    
-    
-    
     // MARK: - UITableViewDataSource
     
     open func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         if let count = self.modelArray?.count {
-            self.noDataImage?.isHidden = true
-            self.noDataLabel?.isHidden = true
+            
+            if count>0 {
+                
+                self.noDataImage?.isHidden = true
+                self.noDataLabel?.isHidden = true
+                
+            } else {
+                
+                self.noDataImage?.isHidden = false
+                self.noDataLabel?.isHidden = false
+            }
             
             return count
+        
         } else {
             self.noDataImage?.isHidden = false
             self.noDataLabel?.isHidden = false

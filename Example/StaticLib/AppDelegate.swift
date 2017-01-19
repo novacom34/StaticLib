@@ -83,17 +83,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ObserverModelProtocol, Ob
         
         
         
-        self.arrayModel.registerObserver(self)
+//        self.arrayModel.registerObserver(self)
         //self.observebl.registerObserver(self)
         
         let obs1 = AbstractModel()
         let obs2 = AbstractModel()
         let obs3 = AbstractModel()
         
-        self.arrayModel.addModel(obs1)
+        self.arrayModel.registerObserver(obs1)
+        self.arrayModel.registerObserver(obs2)
+        self.arrayModel.registerObserver(obs2)
+        self.arrayModel.registerObserver(obs3)
         
         print("===========================")
-        print("\(self.arrayModel.array)")
+        print("\(self.arrayModel.observerSet.count)")
         
         
         self.accessQueue.async {

@@ -36,19 +36,14 @@ open class ObservableObject : NSObject, ObservableProtocol {
     }()
     
     open func registerObserver(_ observer: NSObject) {
-        
-        self.safeQueue.sync(flags: .barrier, execute: { [unowned self] in
-            let weakLink = WeakLink(target: observer)
-            self.observerSet.add(weakLink)
-        })
+        let weakLink = WeakLink(target: observer)
+        self.observerSet.add(weakLink)
     }
     
     open func unregisterObserver(_ observer: NSObject) {
+        let weakLink = WeakLink(target: observer)
+        self.observerSet.remove(weakLink)
         
-        self.safeQueue.sync(flags: .barrier, execute: { [unowned self] in
-            let weakLink = WeakLink(target: observer)
-            self.observerSet.remove(weakLink)
-        })
     }
     
 //MARK: - Notify Observers functions

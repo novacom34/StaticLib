@@ -19,7 +19,7 @@ class ViewController: AbstractTableViewController {
         let vm = TestViewModel()
         
         self.modelArray?.addModel(vm)
-        self.tableView.reloadData()
+        
         
     }
 }
