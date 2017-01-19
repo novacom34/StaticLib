@@ -15,9 +15,9 @@ import Foundation
 // ===================================================================
 open class AbstractViewController : UIViewController, ObserverModelProtocol, ObserverArrayModelProtocol {
     
-    @IBOutlet var activityIndicator : UIActivityIndicatorView?
-    @IBOutlet var noDataLabel : UILabel?
-    @IBOutlet var noDataImage : UIImageView?
+    @IBOutlet open var activityIndicator : UIActivityIndicatorView?
+    @IBOutlet open var noDataLabel : UILabel?
+    @IBOutlet open var noDataImage : UIImageView?
     
     open var modelArray : AbstractArrayModel? {
         didSet {
