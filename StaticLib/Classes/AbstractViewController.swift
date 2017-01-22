@@ -40,6 +40,37 @@ open class AbstractViewController : UIViewController, ObserverModelProtocol, Obs
         
     }
     
+    open func registerForKeyboardNotifications() {
+        NotificationCenter.default.addObserver(self,
+                                               selector: "keyboardWillShown:",
+                                               name: NSNotification.Name.UIKeyboardWillShow,
+                                               object: nil)
+        
+        NotificationCenter.default.addObserver(self,
+                                               selector: "keyboardWillHide:",
+                                               name: NSNotification.Name.UIKeyboardWillHide,
+                                               object: nil)
+    }
+    
+    open func unregisterForKeyboardNotifications() {
+        NotificationCenter.default.removeObserver(self,
+                                               name: NSNotification.Name.UIKeyboardWillShow,
+                                               object: nil)
+        
+        NotificationCenter.default.removeObserver(self,
+                                               name: NSNotification.Name.UIKeyboardWillHide,
+                                               object: nil)
+    }
+    
+    open func keyboardWillShown(notification: NSNotification) {
+        
+    }
+    
+    open func keyboardWillHide(notification: NSNotification) {
+        
+    }
+    
+    
     // MARK: - Observer Model Methods
     
     open func modelWillLoad(_ model: AbstractModel) {
@@ -165,6 +196,21 @@ open class AbstractTableViewController : AbstractViewController, UITableViewDele
     // MARK: - UITableViewDelegate
     open func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
+    }
+    
+    // MARK: - Keyboard
+    open override func keyboardWillShown(notification: NSNotification) {
+        var info = notification.userInfo
+        
+        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+            let keyboardHeight = keyboardSize.height
+            var contentInsets = UIEdgeInsetsMake(0.0, 0.0, keyboardHeight, 0.0)
+            self.tableView.contentInset = contentInsets
+        }
+    }
+    
+    open override func keyboardWillHide(notification: NSNotification) {
+        self.tableView.contentInset = UIEdgeInsets.zero
     }
     
     // MARK: - Observer Array Model Methods
