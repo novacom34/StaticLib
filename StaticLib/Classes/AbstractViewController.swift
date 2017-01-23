@@ -217,11 +217,13 @@ open class AbstractTableViewController : AbstractViewController, AbstractCellDel
             let keyboardHeight = keyboardSize.height
             var contentInsets = UIEdgeInsetsMake(0.0, 0.0, keyboardHeight, 0.0)
             self.tableView.contentInset = contentInsets
+            self.tableView.scrollIndicatorInsets = contentInsets
         }
     }
     
     open override func keyboardWillHide(notification: NSNotification) {
         self.tableView.contentInset = UIEdgeInsets.zero
+        self.tableView.scrollIndicatorInsets = UIEdgeInsets.zero
     }
     
     // MARK: - Observer Array Model Methods
