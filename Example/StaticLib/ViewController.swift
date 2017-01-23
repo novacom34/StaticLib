@@ -16,9 +16,10 @@ class ViewController: AbstractTableViewController {
         
         self.modelArray = AbstractArrayModel()
         
-        let vm = TestViewModel()
-        
-        self.modelArray?.addModel(vm)
+        for _ in 0...20 {
+            let vm = TestViewModel()
+            self.modelArray?.addModel(vm)
+        }
         
         
     }

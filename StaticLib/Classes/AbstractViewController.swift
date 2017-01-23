@@ -144,7 +144,7 @@ open class AbstractViewController : UIViewController, ObserverModelProtocol, Obs
 // =====================================================================================
 // MARK: - AbstractTableViewController
 // =====================================================================================
-open class AbstractTableViewController : AbstractViewController, UITableViewDelegate, UITableViewDataSource {
+open class AbstractTableViewController : AbstractViewController, AbstractCellDelegateProtocol ,UITableViewDelegate, UITableViewDataSource {
     
     // MARK: - Property Declaration
     @IBOutlet open var tableView: UITableView!
@@ -188,6 +188,7 @@ open class AbstractTableViewController : AbstractViewController, UITableViewDele
             cell = tableView.dequeueReusableCell(withIdentifier: viewModel.viewIdentifire) as! AbstractTableViewCell?
         }
         
+        cell?.delegat = self
         cell!.viewModel = viewModel
         
         return cell!
@@ -196,6 +197,16 @@ open class AbstractTableViewController : AbstractViewController, UITableViewDele
     // MARK: - UITableViewDelegate
     open func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
+    }
+    
+    // MARK: - AbstractCellDelegateProtocol
+    open func needFocus(_ cell: UITableViewCell) {
+        
+        if let indexPath = self.tableView.indexPath(for: cell) {
+            self.tableView.scrollToRow(at: indexPath,
+                                       at: UITableViewScrollPosition.top,
+                                       animated: true)
+        }
     }
     
     // MARK: - Keyboard

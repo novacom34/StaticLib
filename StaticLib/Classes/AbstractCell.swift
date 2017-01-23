@@ -17,21 +17,29 @@ import Foundation
  -(void)fillWithModel:(VMBase *)viewModel;
  */
 
+
+// MARK: - ====== AbstractCellDelegateProtocol ======
+@objc public protocol AbstractCellDelegateProtocol  : class {
+    @objc optional func needFocus(_ cell: UITableViewCell)
+}
+
 // MARK: - ====== Abstract Cell Protocol ======
 public protocol AbstractCellProtocol {
     
     func fillWithViewModel(_ viewModel: AbstractViewModel?)
     weak var viewModel: AbstractViewModel? {get set}
-    weak var delegat: NSObject? {get set}
+    weak var delegat: AnyObject? {get set}
     
 }
+
+
 
 
 
 // MARK: - ====== Abstract TableView Cell Class ======
 open class AbstractTableViewCell : UITableViewCell, AbstractCellProtocol, ObserverModelProtocol {
     
-    open weak var delegat: NSObject?
+    open weak var delegat: AnyObject?
     open weak var viewModel: AbstractViewModel?{
         didSet {
             oldValue?.unregisterObserver(self)
@@ -48,7 +56,16 @@ open class AbstractTableViewCell : UITableViewCell, AbstractCellProtocol, Observ
     
     // MARK: Abstract Cell Protocol Methods
     open func fillWithViewModel(_ viewModel: AbstractViewModel?) {
-        
+        self.needsFocus()
+    }
+    
+    open func needsFocus() {
+        if let cellDelegate = self.delegat {
+            if (cellDelegate.responds(to: #selector(AbstractCellDelegateProtocol.needFocus(_:)))) {
+                cellDelegate.perform(#selector(AbstractCellDelegateProtocol.needFocus(_:)),
+                                     with: self)
+            }
+        }
     }
     
     // MARK: Observer Model Methods
@@ -92,7 +109,7 @@ open class AbstractTableViewCell : UITableViewCell, AbstractCellProtocol, Observ
 // MARK: - ====== Abstract CollectionView Cell Class ======
 open class AbstractCollectionViewCell : UICollectionViewCell, AbstractCellProtocol, ObserverModelProtocol{
     
-    open weak var delegat: NSObject?
+    open weak var delegat: AnyObject?
     open weak var viewModel: AbstractViewModel? {
         didSet {
             oldValue?.unregisterObserver(self)
