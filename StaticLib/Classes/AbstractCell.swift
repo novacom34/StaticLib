@@ -56,7 +56,7 @@ open class AbstractTableViewCell : UITableViewCell, AbstractCellProtocol, Observ
     
     // MARK: Abstract Cell Protocol Methods
     open func fillWithViewModel(_ viewModel: AbstractViewModel?) {
-        self.needsFocus()
+        
     }
     
     open func needsFocus() {
