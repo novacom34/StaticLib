@@ -42,12 +42,12 @@ open class AbstractViewController : UIViewController, ObserverModelProtocol, Obs
     
     open func registerForKeyboardNotifications() {
         NotificationCenter.default.addObserver(self,
-                                               selector: "keyboardWillShown:",
+                                               selector: #selector(AbstractTableViewController.keyboardWillShown(notification:)),
                                                name: NSNotification.Name.UIKeyboardWillShow,
                                                object: nil)
         
         NotificationCenter.default.addObserver(self,
-                                               selector: "keyboardWillHide:",
+                                               selector: #selector(AbstractTableViewController.keyboardWillHide(notification:)),
                                                name: NSNotification.Name.UIKeyboardWillHide,
                                                object: nil)
     }
