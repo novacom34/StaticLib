@@ -147,7 +147,7 @@ open class AbstractViewController : UIViewController, ObserverModelProtocol, Obs
 open class AbstractTableViewController : AbstractViewController, AbstractCellDelegateProtocol ,UITableViewDelegate, UITableViewDataSource {
     
     // MARK: - Property Declaration
-    @IBOutlet open var tableView: UITableView!
+    @IBOutlet open weak var tableView: UITableView!
     
     // MARK: - UITableViewDataSource
     
