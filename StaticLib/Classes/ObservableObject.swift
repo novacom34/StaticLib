@@ -70,8 +70,8 @@ open class ObservableObject : NSObject, ObservableProtocol {
         if Thread.isMainThread {
             self.notifyObserversWithSelector(selector, andObject: object)
         } else {
-            DispatchQueue.main.sync(execute: {[unowned self] in
-                self.notifyObserversWithSelector(selector, andObject: object)
+            DispatchQueue.main.async(execute: {[weak self] in
+                self?.notifyObserversWithSelector(selector, andObject: object)
             })
         }
     }
