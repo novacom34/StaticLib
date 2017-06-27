@@ -60,11 +60,16 @@ open class AbstractArrayModel : AbstractModel, AbstractArrayModelProtocol {
     private var mutableArray : NSMutableArray = NSMutableArray()
     
     open func addModel(_ model: AnyObject) {
-        self.safeQueue.sync(flags: .barrier, execute: { [unowned self] in
-            self.mutableArray.add(model)
-            let indexPath = IndexPath(row: self.mutableArray.count-1, section: 0)
+        self.safeQueue.sync(flags: .barrier, execute: { [weak self] in
+            
+            guard let welf = self else {
+                return
+            }
+            
+            welf.mutableArray.add(model)
+            let indexPath = IndexPath(row: welf.mutableArray.count-1, section: 0)
             let selector = #selector(ObserverArrayModelProtocol.arrayModel(_:didAddElementsAtIndexs:))
-            self.notifyObserversInMainThreadWithSelector(selector, andObject: [indexPath])
+            welf.notifyObserversInMainThreadWithSelector(selector, andObject: [indexPath])
         })
     }
 
@@ -75,11 +80,15 @@ open class AbstractArrayModel : AbstractModel, AbstractArrayModelProtocol {
     
     open func addModels(_ models: [AnyObject]) {
         
-        self.safeQueue.sync(flags: .barrier, execute: { [unowned self] in
-    
-            let beforeCount = self.mutableArray.count
-            self.mutableArray.addObjects(from: models)
-            let afterCount = self.mutableArray.count
+        self.safeQueue.sync(flags: .barrier, execute: { [weak self] in
+            
+            guard let welf = self else {
+                return
+            }
+            
+            let beforeCount = welf.mutableArray.count
+            welf.mutableArray.addObjects(from: models)
+            let afterCount = welf.mutableArray.count
             
             var mutableIndexPaths : [IndexPath] = []
             
@@ -89,7 +98,7 @@ open class AbstractArrayModel : AbstractModel, AbstractArrayModelProtocol {
             }
 
             let selector = #selector(ObserverArrayModelProtocol.arrayModel(_:didAddElementsAtIndexs:))
-            self.notifyObserversInMainThreadWithSelector(selector, andObject: mutableIndexPaths)
+            welf.notifyObserversInMainThreadWithSelector(selector, andObject: mutableIndexPaths)
         })
     }
     
@@ -141,13 +150,17 @@ open class AbstractArrayModel : AbstractModel, AbstractArrayModelProtocol {
     
     open func removeModel(_ model: AnyObject) {
         
-        safeQueue.sync(flags: .barrier, execute: { [unowned self] in
+        safeQueue.sync(flags: .barrier, execute: { [weak self] in
             
-            let modelIndex = self.mutableArray.index(of: model)
-            self.mutableArray.remove(model)
+            guard let welf = self else {
+                return
+            }
+            
+            let modelIndex = welf.mutableArray.index(of: model)
+            welf.mutableArray.remove(model)
             let indexPath = IndexPath(row: modelIndex, section: 0)
             let selector = #selector(ObserverArrayModelProtocol.arrayModel(_:didRemoveElementsAtIndexs:))
-            self.notifyObserversInMainThreadWithSelector(selector, andObject: [indexPath])
+            welf.notifyObserversInMainThreadWithSelector(selector, andObject: [indexPath])
         })
     }
     
