@@ -95,12 +95,12 @@ open class AbstractArrayModel : AbstractModel, AbstractArrayModelProtocol {
     
     open func insertModel(_ model: AnyObject, atIndex index: Int) {
         
-        safeQueue.sync(flags: .barrier, execute: { [unowned self] in
+        safeQueue.sync(flags: .barrier, execute: { [weak self] in
             
-            self.mutableArray.insert(model, at: index)
+            self?.mutableArray.insert(model, at: index)
             let indexPath = IndexPath(row: index, section: 0)
             let selector = #selector(ObserverArrayModelProtocol.arrayModel(_:didAddElementsAtIndexs:))
-            self.notifyObserversInMainThreadWithSelector(selector, andObject: [indexPath])
+            self?.notifyObserversInMainThreadWithSelector(selector, andObject: [indexPath])
         })
     }
     
@@ -131,11 +131,11 @@ open class AbstractArrayModel : AbstractModel, AbstractArrayModelProtocol {
     
     open func removeAllModels() {
         
-        safeQueue.sync(flags: .barrier, execute: { [unowned self] in
+        safeQueue.sync(flags: .barrier, execute: { [weak self] in
     
-            self.mutableArray.removeAllObjects()
+            self?.mutableArray.removeAllObjects()
             let selector = #selector(ObserverArrayModelProtocol.arrayModelDidChange(_:))
-            self.notifyObserversInMainThreadWithSelector(selector, andObject: nil)
+            self?.notifyObserversInMainThreadWithSelector(selector, andObject: nil)
         })
     }
     
